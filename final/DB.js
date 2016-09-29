@@ -27,18 +27,60 @@ function DB() {
      * create DB instance of student object
      * @param studentId
      * @param classesList
+     * @return {Array} of classes who's id's are not in the DB
      */
     this.createStudent = function(studentId, classesList) {
-        var classes = [];
-        for(var classIdFromList in classesList){
-            classes.push({classId : [classesList[classIdFromList]], attendance : 0});
+        // Make sure the student doesn't exist in the DB
+        if (Student.findOne({id : studentId}).count() > 0) {
+            console.error("Student " + str(studentId) + " already exists");
+            throw err;
         }
+        var list = enrollStudentToClasses(studentId, classesList);
+        var classes = list[0], badClasses = list[1];
+        // Create Student document
         new Student({
             id: studentId,
             classes: classes
         }).save(function (err) {
             if (err) return console.error(err);
         });
+
+        return badClasses;
+    };
+
+
+    /**
+     * Enroll the given student to all classes in the list
+     * @param studentId The given student's ID.
+     * @param classesList Array of classes IDs
+     * @return {Array} size of 2, first is array of existing classes, second is non-existing classes.
+     */
+    this.enrollStudentToClasses = function(studentId, classesList) {
+
+        // check the classes id's exist in th DB
+        var badClasses = [], classes = [];
+        for(var classIndex in classesList) {
+            var classId = [classesList[classIndex]];
+            if (Class.findOne({id : classId}).count() > 0) {
+                console.error("Class " + str(classId) + " already exists");
+                badClasses.push(classId)
+            } else {
+                classes.push({classId : classId, attendance : 0});
+            }
+        }
+
+        // Add student to classes
+        for(var classIndex in classes) {
+            var classId = [classes[classIndex]];
+            Class.findOne({id : classId}, function(err, classObj) {
+                if (err) throw err;
+                classObj.Students.push(studentId);
+                classObj.save(function (err) {
+                    if (err) return console.log(err);
+                });
+            });
+        }
+        return [classes, badClasses]
     };
 
     /**
@@ -61,9 +103,13 @@ function DB() {
      * @param classesList
      */
     this.createClass = function(classId, studentsList, lecturerId, classSchedule) {
+        if (Lecturer.findOne({id : lecturerId}).count() == 0) {
+            console.error("Lecturer " + str(lecturerId) + " doesn't exist");
+            throw err;
+        }
         new Class({
             id: classId,
-            Students: studentsList,
+            Students: [],
             LecturerId : lecturerId,
             schedule : classSchedule,
             roomID : String,
@@ -150,7 +196,7 @@ function DB() {
             }
         }
         return -1;
-    }
+    };
 
     /**
      * Return an array of {studentId, numberOfClassesAttended} of all students the given student takes.
