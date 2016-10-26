@@ -5,8 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/Users.js');
+var session = require('express-session');
 
 
 var app = express();
@@ -21,7 +22,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.session({ secret: 'hold the door' }));
+app.use(session({ secret: 'hold the door' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -81,10 +82,10 @@ app.get('/', function (req, res) {
   res.render('enter.jade');
 });
 
-//demand authentication from this point on
-app.all('*',require('connect-ensure-login').ensureLoggedIn('/login'),function(a,b,next){
-  next();
-});
+////demand authentication from this point on
+//app.all('*',require('connect-ensure-login').ensureLoggedIn('/login'),function(a,b,next){
+//  next();
+//});
 
 //------------------------------------------Student-------------------------------------
 
@@ -95,7 +96,11 @@ app.get('/students', function (req, res) {
 
 //Students data request
 app.get('/students/data', function (req, res) {
-  database.getStudentAttendance(req.user.id, res.json);
+  dataBase.getStudentAttendance(req.user.id, res.json);
+});
+
+app.post('/addStudent', function (req, res) {
+  dataBase.createStudent(req.body.id, req.body.classList, req.body.password)
 });
 
 
@@ -114,6 +119,10 @@ app.get('/Lecturer/class', function (req, res) {
 
 });
 
+app.post('/addLecturer', function (req, res) {
+  dataBase.createLecturer(req.body.id, req.body.classList, req.body.password)
+  res.status(200).end()
+});
 
 //------------------------------------------Admin----------------------------------------
 

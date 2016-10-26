@@ -21,13 +21,6 @@ var port;
 
 var server;
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
 
 dataBase = new DB();
 dataBase.init(function () {
@@ -39,6 +32,12 @@ dataBase.init(function () {
    * Create HTTP server.
    */
   server = http.createServer(app);
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
 });
 
 

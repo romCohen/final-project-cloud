@@ -11,6 +11,6 @@ var UsersSchema = new Schema({
     userRole: String
 });
 
-User.plugin(passportLocalMongoose);
+UsersSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', UsersSchema);

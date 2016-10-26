@@ -328,7 +328,7 @@ function DB() {
      * @param classId
      * @returns {int} Return index of class in the array iff the class is classes, else return -1.
      */
-    inClasses = function(classes, classId) {
+    var inClasses = function(classes, classId) {
         for (var i = 0; i < classes.length; i++) {
             if (classes[i].classId == classId) {
                 return i;
