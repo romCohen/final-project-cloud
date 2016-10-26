@@ -10,8 +10,8 @@ SERVER_ENDPOINT = "http://"
 SRC_MAC_PATTERN = re.compile("")
 OPERATION_TIME = 900
 
-
-os.remove(MAC_FILE)
+if os.path.isfile(MAC_FILE):
+    os.remove(MAC_FILE)
 p = subprocess.Popen("exec" + CAPTURE_CMD, stdout=subprocess.PIPE, shell=True)
 time.sleep(OPERATION_TIME)
 p.kill()
