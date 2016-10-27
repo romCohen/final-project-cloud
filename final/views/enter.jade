@@ -26,15 +26,13 @@ html(lang='en')
                 script.
                     $('#formal').submit(function (e) {
                         e.preventDefault();
-                        $('#username').value();
-
 
                         $.ajax({
                             type: 'POST',
                             url: 'login',
                             data: {
-                                username: $('#username').value,
-                                password: $('#password').value
+                                username: $('#username').val(),
+                                password: $('#password').val()
                             },
                             error:function(err){console.log(err)}
                         });
