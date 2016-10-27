@@ -94,7 +94,7 @@ app.get('/', function (req, res) {
 });
 
 // TODO: uncomment this
-////demand authentication from this point on
+//demand authentication from this point on
 //app.all('*',require('connect-ensure-login').ensureLoggedIn('/login'),function(a,b,next){
 //  next();
 //});
@@ -108,7 +108,12 @@ app.get('/students', function (req, res) {
 
 //Students data request
 app.get('/students/data', function (req, res) {
-  //dataBase.getStudentAttendance(req.user.username, res.json);
+  //dataBase.getStudentAttendance(req.user.username, function(classes) {
+  //  if (!classes) {
+  //    res.status(500).end(classes);
+  //  } else {
+  //    res.status(200).json(classes);
+  //  }
   dataBase.getStudentAttendance(10, function(classes) {
     if (!classes) {
       res.status(500).end(classes);
@@ -128,7 +133,13 @@ app.post('/addStudent', function (req, res) {
 
 //------------------------------------------Lecturer-------------------------------------
 
-
+//app.all('/admin', function(req, res, next) {
+//  if (req.user.userRole !== 'Admin') {
+//    res.redirect('/login');
+//  } else {
+//    next();
+//  }
+//});
 
 // Students data page
 app.get('/admin/Lecturer', function (req, res) {
@@ -136,9 +147,14 @@ app.get('/admin/Lecturer', function (req, res) {
 });
 
 //Students data request
-app.get('/admin/Lecturer/class', function (req, res) {
-
-
+app.get('/admin/Lecturer/class/:classId', function (req, res) {
+  dataBase.getAttendanceOfClass(req.params.classId, function(classes) {
+    if (!classes) {
+      res.status(500).end(classes);
+    } else {
+      res.status(200).json(classes);
+    }
+  });
 });
 
 // TODO : add classes, remove classes
@@ -158,8 +174,22 @@ app.get('/adminMain', function (req, res) {
   res.render(); // TODO: Write the name of the file
 });
 
-app.get('admin/Students', function(req, res) {
+app.get('/admin/students', function(req, res) {
+  dataBase.getAllStudents(function(result) {
+    res.status(200).json(result)
+  })
+});
 
+app.get('/admin/classes', function(req, res) {
+  dataBase.getAllClasses(function(result) {
+    res.status(200).json(result)
+  })
+});
+
+app.get('/admin/lecturers', function(req, res) {
+  dataBase.getAllLecturers(function(result) {
+    res.status(200).json(result)
+  })
 });
 
 

@@ -363,28 +363,71 @@ function DB() {
      */
     this.getAttendanceOfClass = function(classId, cb) {
         var students = [];
-        Class.findOne({id : classId}, function(err, classObj) {
-            if (err) {
-                console.error("can't find class");
-                throw err;
-            }
+        var cursor = Class.find({id : classId}).cursor();
+        cursor.on('data', function(classObj) {
             students = classObj.Students;
         });
-        var cursor = Student.find({}).cursor();
-        cursor.on('data', function(student) {
-
-            // Check if the class is in the student's classes
-            var index = students.indexOf(student.id);
-            if (index != -1) {
+        cursor.on('end', function() {
+            var secondCursor = Student.find({id : { $in:students}}).cursor();
+            var index = 0;
+            secondCursor.on('data', function(student) {
                 var classIndex = inClasses(student.classes, classId);
                 students[index] = {
                     id: student.id,
                     classAttendance: student.classes[classIndex].attendance
                 };
-            }
+                index++;
+            });
+            secondCursor.on('end', function() {cb(students)});
         });
-        cursor.on('end', function() {cb(students)});
     };
 
+
+    this.getAllStudents = function(cb) {
+        var students = [];
+        var cursor = Student.find({}).cursor();
+        cursor.on('data', function(student) {
+            students.push({
+                id: student.id,
+                MAC: student.MAC,
+                classes: student.classes
+            })
+        });
+        cursor.on('end', function() {
+            cb(students)
+        });
+    };
+
+    this.getAllLecturers = function(cb) {
+        var lecturers = [];
+        var cursor = Lecturer.find({}).cursor();
+        cursor.on('data', function(lecturer) {
+            lecturers.push({
+                id: lecturer.id,
+                classes: lecturer.classes
+            })
+        });
+        cursor.on('end', function() {
+            cb(lecturers)
+        });
+    };
+
+    this.getAllClasses = function(cb) {
+        var classes = [];
+        var cursor = Class.find({}).cursor();
+        cursor.on('data', function(classObj) {
+            classes.push({
+                id: classObj.id,
+                Students: classObj.Students,
+                LecturerId : classObj.LecturerId,
+                roomID : classObj.roomID,
+                schedule : classObj.schedule,
+                numberOfClasses : classObj.numberOfClasses
+            })
+        });
+        cursor.on('end', function() {
+            cb(classes)
+        });
+    }
 }
 module.exports = DB;
