@@ -5,22 +5,25 @@ import subprocess
 import time
 
 MAC_FILE = "/var/tmp/req.txt"
-CAPTURE_CMD = "sudo tcpdump -ni mon0 type mgt subtype probe-req > /var/tmp/req.txt"
-SERVER_ENDPOINT = "http://"
+SERVER_ENDPOINT = "http://192.168.1.104/"
 SRC_MAC_PATTERN = re.compile("")
-OPERATION_TIME = 900
+OPERATION_TIME = 40
+CAPTURE_CMD = "sudo timeout " + str(OPERATION_TIME) + " tcpdump -ni mon0 type mgt subtype probe-req"
 
-if os.path.isfile(MAC_FILE):
-    os.remove(MAC_FILE)
-p = subprocess.Popen("exec " + CAPTURE_CMD, stdout=subprocess.PIPE, shell=True)
-time.sleep(OPERATION_TIME)
-p.kill()
+with open(MAC_FILE, 'w') as macfile:
+    p = subprocess.Popen(CAPTURE_CMD, stdout=macfile, shell=True)
+#time.sleep(OPERATION_TIME * 2)
+    p.communicate()
+    
 macs = []
-with open(MAC_FILE) as captured:
+with open(MAC_FILE, 'r') as captured:
+    print("1111", captured.read())
     for packet in captured:
+        print(packet)
         matches = SRC_MAC_PATTERN.findall(packet)
         if matches:
             macs.append(matches[0])
         else:
             print("no match in packet ", packet)
-requests.post(SERVER_ENDPOINT, json=macs)
+print("macs", macs)
+#requests.post(SERVER_ENDPOINT, json=macs)
