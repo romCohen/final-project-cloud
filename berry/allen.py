@@ -12,7 +12,6 @@ CAPTURE_CMD = "sudo timeout " + str(OPERATION_TIME) + " tcpdump -ni mon0 type mg
 
 with open(MAC_FILE, 'w') as macfile:
     p = subprocess.Popen(CAPTURE_CMD, stdout=macfile, shell=True)
-#time.sleep(OPERATION_TIME * 2)
     p.communicate()
     
 macs = []
