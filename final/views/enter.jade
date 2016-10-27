@@ -4,33 +4,34 @@
 doctype html
 html(lang='en')
     head
-        title Sentence Game
+        title Attendance
         link(href='public/stylesheets/enter.css', rel='stylesheet', type='text/css')
         script(src='https://code.jquery.com/jquery-3.1.1.min.js', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=', crossorigin='anonymous')
     body.align
         .site__container
             .grid__container
 
-                form.form.form--login(action='/games', method='post')
+                form#formal.form.form--login()
                     .form__field
                         label.fontawesome-user(for='username')
                             span.hidden Username
-                        input#username.form__input(type='text', placeholder='Name', required='', name= 'username')
+                        input#username.form__input(type='text', placeholder='Userame', required='', name= 'username')
                     .form__field
                         label.fontawesome-user(for='password')
                             span.hidden Password
-                        input#password.form__input(type='text', placeholder='Name', required='', name= 'password')
+                        input#password.form__input(type='text', placeholder='Password', required='', name= 'password')
                     .form__field
                         input(type='submit', value='Enter')
                         span.fontawesome-arrow-right
                 script.
-                    $('form').submit(function () {
+                    $('#formal').submit(function (e) {
+                        e.preventDefault();
                         $.ajax({
                             type: 'POST',
                             url: 'login',
                             data: {
-                                username: $(this).username.value,
-                                password: $(this).password.value
+                                username: $('#username').value,
+                                password: $('#password').value
                             }
                         });
                         return false;

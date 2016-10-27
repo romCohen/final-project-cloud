@@ -70,7 +70,7 @@ var returnStatusFunction = function(res) {
     }
   }
 };
-
+app.use('/public',express.static(path.join(__dirname, 'public')));
 // redirect successful login according to the user role
 app.post('/login',
     passport.authenticate('local'),
