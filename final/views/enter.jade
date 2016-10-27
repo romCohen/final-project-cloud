@@ -34,8 +34,15 @@ html(lang='en')
                                 username: $('#username').val(),
                                 password: $('#password').val()
                             },
-                            error:function(err){console.log(err)}
+                            error:function(err){console.log(err);shake();}
                         });
                         return false;
                     });
+                    function shake(){
+                        var $formContainer = $('#formal');
+                        $formContainer.addClass('invalid');
+                        setTimeout(function () {
+                            $formContainer.removeClass('invalid');
+                        }, 500);
+                    }
 

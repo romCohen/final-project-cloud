@@ -1,4 +1,4 @@
-class CourseAttendence extends React.Component {
+class CourseAttendance extends React.Component {
 
     constructor() {
         super();
@@ -15,29 +15,29 @@ class CourseAttendence extends React.Component {
                 success: (res) => {
                 this.setState({courses: res});
     },
-        error: GameBoard.requestError
+        error: CourseAttendance.requestError
     });
     }
 
 
 
-    //registerMac(k) {
-    //    return () => {
-    //        $.ajax({
-    //                url: '/registermac',
-    //                data: ({name:}),
-    //                dataType: "text",
-    //                method: "POST",
-    //                success: (response) => {
-    //                console.log("success");
-    //                alert("good");
-    //    },
-    //        error: (jqXHR, textStatus, errorThrown)=> {
-    //            GameBoard.requestError('Username already in Game', jqXHR);
-    //        }
-    //    });
-    //    }
-    //}
+    registerMac(k) {
+        return () => {
+            $.ajax({
+                    url: '/student/registermac',
+                    data: {id:$('idInput').val(), mac:$('macInput').val()},
+                    dataType: "application/json",
+                    method: "POST",
+                    success: (response) => {
+                    console.log("success");
+                    alert("your'e in, if the MAC is incorrect it's imperative that you update it.");
+        },
+            error: (jqXHR, textStatus, errorThrown)=> {
+                CourseAttendance.requestError('MAC Error', jqXHR);
+            }
+        });
+        }
+    }
 
 
     static requestError(error, jqXHR, textStatus, errorThrown) {
@@ -60,6 +60,13 @@ class CourseAttendence extends React.Component {
     });
         return (
             <section>
+                <div className="newGameDiv">
+                    <form onSubmit={this.registerMac.bind(this)}>
+                        <input id="idInput" placeholder="Id number" type="number" required/>
+                        <input id="macInput" placeholder="MAC" type="text" required/>
+                        <button>Register</button>
+                    </form>
+                </div>
                 <table id="CourseAttendanceTable">
                     <colgroup>
                         <col style={{width:'20%'}}></col>
@@ -82,4 +89,4 @@ class CourseAttendence extends React.Component {
 }
 
 
-ReactDOM.render(React.createElement(CourseAttendence), document.getElementById("courseListContainer"));
+ReactDOM.render(React.createElement(CourseAttendance), document.getElementById("courseListContainer"));
