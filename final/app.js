@@ -8,13 +8,14 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/Users.js');
 var session = require('express-session');
+var busboy = require('connect-busboy');
 
 
 var app = express();
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -26,23 +27,23 @@ app.use(cookieParser());
 app.use(session({ secret: 'hold the door' }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(busboy())
 
 passport.serializeUser(function(user, done) {
   done(null, user.username);
 });
 
-passport.deserializeUser(function (id, done) {
+passport.deserializeUser(function (user, done) {
   //If using Mongoose with MongoDB; if other you will need JS specific to that schema
-  User.find({userName : id}, function (err, user) {
-    done(err, user);
-  });
+    done(null, user);
 });
 
 // log in strategy - userID and password
 passport.use(new LocalStrategy(function(userId, password, done) {
+  userId = parseInt(userId)
   process.nextTick(function() {
     User.findOne({
-      'username ': parseInt(userId)
+      'username': userId
     }, function(err, user) {
       if (err) {
         return done(err);
@@ -52,7 +53,7 @@ passport.use(new LocalStrategy(function(userId, password, done) {
         return done(null, false);
       }
 
-      if (user.password != password) {
+      if (user.password !== password) {
         return done(null, false);
       }
 
@@ -133,13 +134,13 @@ app.post('/addStudent', function (req, res) {
 
 //------------------------------------------Lecturer-------------------------------------
 
-//app.all('/admin', function(req, res, next) {
-//  if (req.user.userRole !== 'Admin') {
-//    res.redirect('/login');
-//  } else {
-//    next();
-//  }
-//});
+app.all('/admin', function(req, res, next) {
+  if (req.user.userRole !== 'Admin') {
+    res.redirect('/login');
+  } else {
+    next();
+  }
+});
 
 // Students data page
 app.get('/admin/Lecturer', function (req, res) {
