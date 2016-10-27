@@ -1,7 +1,7 @@
-import os
 import requests
 import re
 import subprocess
+<<<<<<< HEAD
 import time
 #CONFIG
 CLASSROOM = 1
@@ -14,6 +14,7 @@ MAC_LENGTH = 17
 with open(MAC_FILE, 'w') as macfile:
     p = subprocess.Popen(CAPTURE_CMD, stdout=macfile, shell=True)
     p.communicate()
+
 macs = []
 
 with open(MAC_FILE, 'r') as captured:

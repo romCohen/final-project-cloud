@@ -8,16 +8,14 @@ var Lecturer = require('./models/Lecturer.js');
 var Class = require('./models/Class.js');
 var dbURL = 'mongodb://clod:1234@ds036789.mlab.com:36789/dibi'; // TODO: Need to update
 
-String.prototype.hashCode = function() {
-    var hash = 0, i, chr, len;
-    if (this.length === 0) return hash;
-    for (i = 0, len = this.length; i < len; i++) {
-        chr   = this.charCodeAt(i);
-        hash  = ((hash << 5) - hash) + chr;
-        hash |= 0; // Convert to 32bit integer
-    }
-    return hash;
-};
+var weekday = new Array(7);
+weekday["sunday"]= 0 ;
+weekday["monday"] = 1;
+weekday["tuesday"] = 2;
+weekday["wednesday"] = 3;
+weekday["thursday"] = 4;
+weekday["friday"] = 5;
+weekday["saturday"] = 6;
 
 
 function DB() {
@@ -36,41 +34,6 @@ function DB() {
     };
 
     /**
-     * Fill the data structures from app: lectures, classes, and students.
-     */
-    //this.fillDatastructures = function() {
-    //    // Get classes
-    //    Class.find({}, function(err, classes) {
-    //        for(var i = 0; i < classes.length; i++) {
-    //            var newClass = {};
-    //            newClass.id = classes[i].id;
-    //            newClass.Students = classes[i].Students;
-    //            newClass.roomID = classes[i].roomID;
-    //            newClass.schedule = classes[i].schedule;
-    //            newClass.numberOfClasses = classes[i].numberOfClasses;
-    //        }
-    //    });
-    //
-    //    // Get students
-    //    Student.find({}, function(err, students) {
-    //       for(var i = 0; i < students.length; i++) {
-    //           var newStudent = {};
-    //           newStudent.id = students[i].id;
-    //           newStudent.classes = students[i].classes;
-    //       }
-    //    });
-    //
-    //    // Get classes
-    //    Lecturer.find({}, function(err, lecturers) {
-    //        for(var i = 0; i < lecturers.length; i++) {
-    //            var newClass = {};
-    //            newClass.id = lecturers[i].id;
-    //            newClass.classes = lecturers[i].classes;
-    //        }
-    //    });
-    //};
-
-    /**
      * Add a new user to the User schema
      * @param userId
      * @param password
@@ -78,17 +41,83 @@ function DB() {
      */
     var addNewUser = function(userId, password, role) {
         if (User.findOne({id : userId}).count() > 0) {
-            console.error("User " + str(userId) + " already exists");
+            console.error("User " + String(userId) + " already exists");
             throw err;
         }
-        new User({
-            id: userId,
-            password: password,
-            userRole: role
-        }).save(function(err) {
-            if (err) return console.error(err);
+        // Make sure the student doesn't exist in the DB
+        User.find({id : studentId}, function(err, users) {
+            if (err) throw err;
+            if (users.length > 0) {
+                err = "User " + String(userId) + " already exists";
+                console.error(err);
+                throw err;
+            } else {
+                new User({
+                    id: userId,
+                    password: password,
+                    userRole: role
+                }).save(function(err) {
+                    if (err) return console.error(err);
+                });
+            }
+        });
+
+    };
+
+    /**
+     * Enroll the given student to all classes in the list
+     * @param studentId The given student's ID.
+     * @param classesList Array of classes IDs
+     * @return {Array} size of 2, first is array of existing classes, second is non-existing classes.
+     */
+    var enrollStudentToClasses = function(studentId, classesList, cb) {
+
+        // check the classes id's exist in th DB
+        var classes = [];
+        var cursor = Class.find({}).cursor();
+        cursor.on('data', function(classObj) {
+            console.log(classObj);
+            var index = classesList.indexOf(classObj.id);
+            if (index != -1) {
+                classes.push({classId : classObj.id, attendance : 0});
+            }
+        });
+        cursor.on('end', function() {
+            console.log(classes);
+            var classCursor = Class.find({id : { $in: classesList }}).cursor();
+            classCursor.on('data', function(classObj) {
+                var index = classObj.Students.indexOf(studentId);
+                if (index === -1) {
+                    classObj.Students.push(studentId);
+                    classObj.save(function (err) {
+                        if (err) return console.log(err);
+                    });
+                }
+            });
+            classCursor.on('end', function() {cb(classes);})
         });
     };
+
+    /**
+     * Check if DB instance of with the given studentId exists, if not create it.
+     * @param studentId
+     * @param classesList
+     * @return {Array} of classes who's id's are not in the DB
+     */
+    this.createStudent = function(studentId, classesList, password, MACAddress, cb) {
+        // Make sure the student doesn't exist in the DB
+        Student.find({id : studentId}, function(err, users) {
+            if (err) throw err;
+            if (users.length > 0) {
+                err = "Student " + String(studentId) + " already exists";
+                console.error(err);
+                cb(err);
+            } else {
+                addStudent(studentId, classesList, password, MACAddress, cb)
+            }
+        });
+    };
+
 
     /**
      * create DB instance of student object
@@ -96,23 +125,19 @@ function DB() {
      * @param classesList
      * @return {Array} of classes who's id's are not in the DB
      */
-    this.createStudent = function(studentId, classesList, password) {
-        // Make sure the student doesn't exist in the DB
-        if (Student.findOne({id : studentId}).count() > 0) {
-            console.error("Student " + str(studentId) + " already exists");
-            throw err;
-        }
-        var list = enrollStudentToClasses(studentId, classesList);
-        var classes = list[0], badClasses = list[1];
-        // Create Student document
-        new Student({
-            id: studentId,
-            classes: classes
-        }).save(function (err) {
-            if (err) return console.error(err);
+    var addStudent = function(studentId, classesList, password, MACAddress, cb) {
+        var list = enrollStudentToClasses(studentId, classesList, function (classes) {
+            // Create Student document
+            new Student({
+                id: studentId,
+                classes: classes,
+                MAC: MACAddress
+            }).save(function (err) {
+                if (err) return console.error(err);
+            });
+            addNewUser(studentId, password, "Student");
+            cb(null);
         });
-        addNewUser(studentId, password, "Student");
-        return badClasses;
     };
 
     /**
@@ -122,54 +147,17 @@ function DB() {
         var students = [];
         if (typeof studentIds === 'undefined' || studentIds.length === 0) {
             var cursor = Student.find({}).cursor();
-            cursor.on('data', function(err, student) {
-                if (err) throw err;
+            cursor.on('data', function(student) {
                 students.push(student)
             });
             cursor.on('end', cb(students))
         } else {
             var cursor = Student.find({id : { $in: studentIds }}).cursor();
-            cursor.on('data', function(err, student) {
-                if (err) throw err;
+            cursor.on('data', function(student) {
                 students.push(student)
             });
             cursor.on('end', cb(students))
         }
-    };
-
-
-    /**
-     * Enroll the given student to all classes in the list
-     * @param studentId The given student's ID.
-     * @param classesList Array of classes IDs
-     * @return {Array} size of 2, first is array of existing classes, second is non-existing classes.
-     */
-    this.enrollStudentToClasses = function(studentId, classesList) {
-
-        // check the classes id's exist in th DB
-        var badClasses = [], classes = [];
-        for(var classIndex in classesList) {
-            var classId = [classesList[classIndex]];
-            if (Class.findOne({id : classId}).count() > 0) {
-                console.error("Class " + str(classId) + " already exists");
-                badClasses.push(classId)
-            } else {
-                classes.push({classId : classId, attendance : 0});
-            }
-        }
-
-        // Add student to classes
-        for(var classIndex in classes) {
-            var classId = [classes[classIndex]];
-            Class.findOne({id : classId}, function(err, classObj) {
-                if (err) throw err;
-                classObj.Students.push(studentId);
-                classObj.save(function (err) {
-                    if (err) return console.log(err);
-                });
-            });
-        }
-        return [classes, badClasses]
     };
 
     /**
@@ -177,14 +165,25 @@ function DB() {
      * @param lecturerId
      * @param classesList
      */
-    this.createLecturer = function(lecturerId, classesList, password) {
-        new Lecturer({
-            id: lecturerId,
-            classes: classesList
-        }).save(function (err) {
-            if (err) return console.error(err);
+    this.createLecturer = function(lecturerId, classesList, password, cb) {
+        // Make sure the lecturer doesn't exist in the DB
+        Lecturer.find({id : lecturerId}, function(err, users) {
+            if (err) throw err;
+            if (users.length > 0) {
+                err = "Lecturer " + String(lecturerId) + " already exists";
+                console.error(err);
+                cb(err);
+            } else {
+                new Lecturer({
+                    id: lecturerId,
+                    classes: classesList
+                }).save(function (err) {
+                    if (err) return console.error(err);
+                });
+                addNewUser(lecturerId, password, "Admin");
+                cb(null)
+            }
         });
-        addNewUser(lecturerId, password, "Admin");
     };
 
 
@@ -195,15 +194,13 @@ function DB() {
         var lecturers = [];
         if (typeof lecturerIds === 'undefined' || lecturerIds.length === 0) {
             var cursor = Lecturer.find({}).cursor();
-            cursor.on('data', function(err, lecturer) {
-                if (err) throw err;
+            cursor.on('data', function(lecturer) {
                 lecturers.push(lecturer)
             });
             cursor.on('end', cb(lecturers))
         } else {
             var cursor = Lecturer.find({id : { $in: lecturerIds }}).cursor();
-            cursor.on('data', function(err, lecturer) {
-                if (err) throw err;
+            cursor.on('data', function(lecturer) {
                 lecturers.push(lecturer)
             });
             cursor.on('end', cb(lecturers))
@@ -217,20 +214,30 @@ function DB() {
      * @param studentId
      * @param classesList
      */
-    this.createClass = function(classId, studentsList, lecturerId, classSchedule) {
-        if (Lecturer.findOne({id : lecturerId}).count() == 0) {
-            console.error("Lecturer " + str(lecturerId) + " doesn't exist");
-            throw err;
-        }
-        new Class({
-            id: classId,
-            Students: [],
-            LecturerId : lecturerId,
-            schedule : classSchedule,
-            roomID : String,
-            numberOfClasses : 0
-        }).save(function (err) {
-            if (err) return console.error(err);
+    this.createClass = function(classId, studentsList, lecturerId, roomName, classSchedule, cb) {
+        // Make sure the lecturer doesn't exist in the DB
+        Class.findOne({id : studentId}, function(err, users) {
+            if (err) throw err;
+            if (users.length > 0) {
+                err = "Class " + String(classId) + " already exists";
+                console.error(err);
+                cb(err);
+            } else {
+                for (var i = 0; i < classSchedule.length; i++) {
+                    classSchedule[i].day = weekday[classSchedule[i].day.toLowerCase()];
+                }
+                new Class({
+                    id: classId,
+                    Students: [],
+                    LecturerId : lecturerId,
+                    schedule : classSchedule,
+                    roomID : roomName,
+                    numberOfClasses : 0
+                }).save(function (err) {
+                    if (err) return console.error(err);
+                });
+                cb(null)
+            }
         });
     };
 
@@ -242,55 +249,75 @@ function DB() {
         var classes = [];
         if (typeof classIds === 'undefined' || classIds.length === 0) {
             var cursor = Lecturer.find({}).cursor();
-            cursor.on('data', function(err, classObj) {
-                if (err) throw err;
+            cursor.on('data', function(classObj) {
                 classes.push(classObj)
             });
             cursor.on('end', cb(classes))
         } else {
             var cursor = Lecturer.find({id : { $in: classIds }}).cursor();
-            cursor.on('data', function(err, classObj) {
-                if (err) throw err;
+            cursor.on('data', function(classObj) {
                 classes.push(classObj)
             });
-            cursor.on('end', cb(classes))
+            cursor.on('end', function() {cb(classes)})
         }
-
     };
 
+    /**
+     * Use the given call back on the class the was held in {roomId} at this current time.
+     * @param roomId - The given roomId.
+     * @param cb - The given call back function.
+     */
+    this.useClassIdByDate = function(roomId, cb) {
+        var returnClass,
+            currentDate = new Date();
+        var cursor = Class.find({roomID : roomId}).cursor();
+        cursor.on('data', function(classObj) {
+            for (var i = 0; i < classObj.schedule.length; i++){
+                if (classObj.schedule[i].day === currentDate.getDay() &&
+                    classObj.schedule[i].start === currentDate.getHours() &&
+                    classObj.schedule[i].end > currentDate.getHours()) {
+                    returnClass = classObj;
+                    break;
+                }
+            }
+        });
+        cursor.on('end', function() {
+           cb(returnClass)
+        });
+    };
 
     /**
      * Update The DB of the attendance of the given class
      * @param classId
-     * @param studentsInAttendance - array of student IDs
+     * @param studentsInAttendance - array of student MAC's
+     * @param cb - call back function
      */
-    this.updateAttendances = function(classId, studentsInAttendance) {
-        Class.findOne({id : classId}, function (err, classFound) {
-            if (err) throw err;
-            classFound.numberOfClasses++;
-            classFound.save(function (err) {
-                if (err) throw err;
-            });
+    this.updateAttendances = function(classObj, studentsInAttendance, cb) {
+        classObj.numberOfClasses++;
+        classObj.save(function (err) {
+            if (err) {
+                console.log(err);
+                cb(err)
+            }
         });
-        Student.find({}, function (err, students) {
-            if (err) throw err;
-            students.forEach(function (student) {
-                // Check if this student attended the class
-                if (studentsInAttendance.indexOf(student.id) != -1) {
-                    var classes = student.classes;
-                    for (var i = 0; i < classes.length; i++) {
-                        if (classes[i].classId == classId) {
-                            // update the class
-                            classes.attendance += 1;
-                            student.save(function (err) {
-                                if (err) return console.log(err);
-                            });
-                            break;
+        var cursor = Student.find({MAC : { $in:studentsInAttendance}}).cursor();
+        cursor.on('data', function (student) {
+            var classes = student.classes;
+            for (var i = 0; i < classes.length; i++) {
+                if (classes[i].classId === classObj.id) {
+                    // update the class
+                    classes.attendance++;
+                    student.save(function (err) {
+                        if (err) {
+                            console.log(err);
+                            cb(err)
                         }
-                    }
+                    });
+                    break;
                 }
-            });
+            }
         });
+
     };
 
 
@@ -308,17 +335,14 @@ function DB() {
             classes = student.classes;
         });
         var cursor = Class.find({}).cursor();
-        cursor.on('data',function(err, allClasses) {
-            if (err) throw err;
-            allClasses.forEach(function (classObj) {
-                // Check if the class is in the student's classes
-                var index = inClasses(classes, classObj.id);
-                if (index != -1) {
-                    classes[index].totalClasses = classObj.numberOfClasses;
-                }
-            });
+        cursor.on('data',function(classObj) {
+            // Check if the class is in the student's classes
+            var index = inClasses(classes, classObj.id);
+            if (index != -1) {
+                classes[index].totalClasses = classObj.numberOfClasses;
+            }
         });
-        cursor.on('end', cb(classes));
+        cursor.on('end', function() {cb(classes)});
     };
 
 
@@ -352,21 +376,19 @@ function DB() {
             students = classObj.Students;
         });
         var cursor = Student.find({}).cursor();
-        cursor.on('data', function(err, allStudents) {
-            if (err) throw err;
-            allStudents.forEach(function (student) {
-                // Check if the class is in the student's classes
-                var index = students.indexOf(student.id);
-                if (index != -1) {
-                    var classIndex = inClasses(student.classes, classId);
-                    students[index] = {
-                        id : student.id,
-                        classAttendance : student.classes[classIndex].attendance
-                    };
-                }
-            });
+        cursor.on('data', function(student) {
+
+            // Check if the class is in the student's classes
+            var index = students.indexOf(student.id);
+            if (index != -1) {
+                var classIndex = inClasses(student.classes, classId);
+                students[index] = {
+                    id: student.id,
+                    classAttendance: student.classes[classIndex].attendance
+                };
+            }
         });
-        cursor.on('end', cb(students));
+        cursor.on('end', function() {cb(students)});
     };
 
 }
