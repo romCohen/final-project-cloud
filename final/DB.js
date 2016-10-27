@@ -40,12 +40,8 @@ function DB() {
      * @param role
      */
     var addNewUser = function(userId, password, role) {
-        if (User.findOne({id : userId}).count() > 0) {
-            console.error("User " + String(userId) + " already exists");
-            throw err;
-        }
         // Make sure the student doesn't exist in the DB
-        User.find({id : studentId}, function(err, users) {
+        User.find({id : userId}, function(err, users) {
             if (err) throw err;
             if (users.length > 0) {
                 err = "User " + String(userId) + " already exists";
@@ -53,7 +49,7 @@ function DB() {
                 throw err;
             } else {
                 new User({
-                    id: userId,
+                    username: userId,
                     password: password,
                     userRole: role
                 }).save(function(err) {
@@ -108,7 +104,7 @@ function DB() {
         // Make sure the student doesn't exist in the DB
         Student.find({id : studentId}, function(err, users) {
             if (err) throw err;
-            if (users.length > 0) {
+            if (users != null && users.length > 0) {
                 err = "Student " + String(studentId) + " already exists";
                 console.error(err);
                 cb(err);
@@ -126,7 +122,7 @@ function DB() {
      * @return {Array} of classes who's id's are not in the DB
      */
     var addStudent = function(studentId, classesList, password, MACAddress, cb) {
-        var list = enrollStudentToClasses(studentId, classesList, function (classes) {
+        enrollStudentToClasses(studentId, classesList, function (classes) {
             // Create Student document
             new Student({
                 id: studentId,
@@ -216,9 +212,9 @@ function DB() {
      */
     this.createClass = function(classId, studentsList, lecturerId, roomName, classSchedule, cb) {
         // Make sure the lecturer doesn't exist in the DB
-        Class.findOne({id : studentId}, function(err, users) {
+        Class.find({id : classId}, function(err, users) {
             if (err) throw err;
-            if (users.length > 0) {
+            if (users != null && users.length > 0) {
                 err = "Class " + String(classId) + " already exists";
                 console.error(err);
                 cb(err);
@@ -327,22 +323,21 @@ function DB() {
      */
     this.getStudentAttendance = function(studentId, cb) {
         var classes = [];
-        Student.findOne({id : studentId}, function(err, student) {
-            if (err) {
-                console.error("can't find student");
-                throw err;
-            }
+        var cursor = Student.find({id : studentId}).cursor();
+        cursor.on('data', function(student) {
             classes = student.classes;
         });
-        var cursor = Class.find({}).cursor();
-        cursor.on('data',function(classObj) {
-            // Check if the class is in the student's classes
-            var index = inClasses(classes, classObj.id);
-            if (index != -1) {
-                classes[index].totalClasses = classObj.numberOfClasses;
-            }
+        cursor.on('end', function() {
+            var secondCursor = Class.find({}).cursor();
+            secondCursor.on('data',function(classObj) {
+                // Check if the class is in the student's classes
+                var index = inClasses(classes, classObj.id);
+                if (index != -1) {
+                    classes[index].totalClasses = classObj.numberOfClasses;
+                }
+            });
+            secondCursor.on('end', function() {cb(classes)});
         });
-        cursor.on('end', function() {cb(classes)});
     };
 
 

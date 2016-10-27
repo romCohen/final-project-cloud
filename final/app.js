@@ -21,14 +21,14 @@ app.set('view engine', 'jade');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ secret: 'hold the door' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+  done(null, user.username);
 });
 
 passport.deserializeUser(function (id, done) {
@@ -61,11 +61,13 @@ passport.use(new LocalStrategy(function(userId, password, done) {
   });
 }));
 
-var returnStatusFunction = function(err) {
-  if (err) {
-    res.status(500).end(err);
-  } else {
-    res.status(200).end();
+var returnStatusFunction = function(res) {
+  return function(err) {
+    if (err) {
+      res.status(500).end(err);
+    } else {
+      res.status(200).end();
+    }
   }
 };
 
@@ -80,10 +82,10 @@ app.post('/login',
         res.redirect('/students')
       } else {
         // Shouldn't reach here, if so there is a bug in creating Users in the DB
-        console.log("User " + user.id.toString + "has illegal role: " + req.user.userRole);
+        console.log("User " + user.username.toString + "has illegal role: " + req.user.userRole);
         res.redirect('/')
       }
-          res.redirect('/users/' + req.user.username);
+      res.redirect('/users/' + req.user.username);
     });
 
 // login - to check data
@@ -106,37 +108,48 @@ app.get('/students', function (req, res) {
 
 //Students data request
 app.get('/students/data', function (req, res) {
-  dataBase.getStudentAttendance(req.user.id, res.json);
+  //dataBase.getStudentAttendance(req.user.username, res.json);
+  dataBase.getStudentAttendance(10, function(classes) {
+    if (!classes) {
+      res.status(500).end(classes);
+    } else {
+      res.status(200).json(classes);
+    }
+  });
 });
 
+// TODO : add classes, remove classes
+
 app.post('/addStudent', function (req, res) {
-  dataBase.createStudent(req.body.id, req.body.classList, req.body.password, req.body.MACAddress, returnStatusFunction);
-  console.log(req.body)
+  dataBase.createStudent(req.body.id, req.body.classList, req.body.password, req.body.MACAddress,
+      returnStatusFunction(res));
 });
 
 
 //------------------------------------------Lecturer-------------------------------------
 
+
+
 // Students data page
-app.get('/Lecturer', function (req, res) {
+app.get('/admin/Lecturer', function (req, res) {
   res.render(); // TODO: Write the name of the file
 });
 
 //Students data request
-app.get('/Lecturer/class', function (req, res) {
-  if (typeof req.body.classIds !== 'undefined' && req.body.classIds.length > 0) {
+app.get('/admin/Lecturer/class', function (req, res) {
 
-  }
 
 });
 
-app.post('/addLecturer', function (req, res) {
-  dataBase.createLecturer(req.body.id, req.body.classList, req.body.password, returnStatusFunction);
+// TODO : add classes, remove classes
+
+app.post('/admin/addLecturer', function (req, res) {
+  dataBase.createLecturer(req.body.id, req.body.classList, req.body.password, returnStatusFunction(res));
 });
 
-app.post('/addClass', function (req, res) {
+app.post('/admin/addClass', function (req, res) {
   dataBase.createClass(req.body.id, req.body.studentList, req.body.lecturerId, req.body.roomId, req.body.schedule,
-      returnStatusFunction);
+      returnStatusFunction(res));
 });
 
 //------------------------------------------Admin----------------------------------------
@@ -161,7 +174,7 @@ app.get('admin/Students', function(req, res) {
  */
 app.post('/pidata', function (req, res) {
   database.useClassIdByDate(req.body.roomId, function(returnClass) {
-    database.updateAttendances(returnClass, req.body.studentsMac, returnStatusFunction)
+    database.updateAttendances(returnClass, req.body.studentsMac, returnStatusFunction(res))
   });
 });
 

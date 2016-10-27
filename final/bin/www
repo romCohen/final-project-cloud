@@ -25,6 +25,7 @@ var server;
 dataBase = new DB();
 dataBase.init(function () {
   console.log("DB ready");
+  //fillDBTest();
   port = normalizePort(process.env.PORT || '3000');
   app.set('port', port);
 
@@ -40,6 +41,21 @@ dataBase.init(function () {
   server.on('listening', onListening);
 });
 
+
+function fillDBTest() {
+  dataBase.createLecturer(1, [1,2], "admin", function(err) {
+    if (!err) {
+      dataBase.createClass(6521, [], 1, "Canada", [{day:"monday", start:12, end:13},
+        {day:"sunday", start:12, end:14}],
+          function(err){
+            if (!err) {
+              dataBase.createStudent(10, [6521], "1234", "AS:ce:9e:8d:02:1d:e9",
+                  function(err) {});
+            }
+          });
+      }
+  });
+}
 
 /**
  * Normalize a port into a number, string, or false.
