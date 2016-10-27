@@ -42,7 +42,7 @@ passport.deserializeUser(function (id, done) {
 passport.use(new LocalStrategy(function(userId, password, done) {
   process.nextTick(function() {
     User.findOne({
-      'id': parseInt(userId)
+      'username ': parseInt(userId)
     }, function(err, user) {
       if (err) {
         return done(err);
@@ -103,7 +103,7 @@ app.get('/', function (req, res) {
 
 // Students data page
 app.get('/students', function (req, res) {
-  res.render(); // TODO: Write the name of the file
+  res.render('studentsView.jade');
 });
 
 //Students data request
