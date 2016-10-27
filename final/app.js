@@ -12,6 +12,7 @@ var session = require('express-session');
 
 var app = express();
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -20,7 +21,7 @@ app.set('view engine', 'jade');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ secret: 'hold the door' }));
 app.use(passport.initialize());
@@ -60,6 +61,14 @@ passport.use(new LocalStrategy(function(userId, password, done) {
   });
 }));
 
+var returnStatusFunction = function(err) {
+  if (err) {
+    res.status(500).end(err);
+  } else {
+    res.status(200).end();
+  }
+};
+
 // redirect successful login according to the user role
 app.post('/login',
     passport.authenticate('local'),
@@ -82,6 +91,7 @@ app.get('/', function (req, res) {
   res.render('enter.jade');
 });
 
+// TODO: uncomment this
 ////demand authentication from this point on
 //app.all('*',require('connect-ensure-login').ensureLoggedIn('/login'),function(a,b,next){
 //  next();
@@ -100,7 +110,8 @@ app.get('/students/data', function (req, res) {
 });
 
 app.post('/addStudent', function (req, res) {
-  dataBase.createStudent(req.body.id, req.body.classList, req.body.password)
+  dataBase.createStudent(req.body.id, req.body.classList, req.body.password, req.body.MACAddress, returnStatusFunction);
+  console.log(req.body)
 });
 
 
@@ -120,8 +131,12 @@ app.get('/Lecturer/class', function (req, res) {
 });
 
 app.post('/addLecturer', function (req, res) {
-  dataBase.createLecturer(req.body.id, req.body.classList, req.body.password)
-  res.status(200).end()
+  dataBase.createLecturer(req.body.id, req.body.classList, req.body.password, returnStatusFunction);
+});
+
+app.post('/addClass', function (req, res) {
+  dataBase.createClass(req.body.id, req.body.studentList, req.body.lecturerId, req.body.roomId, req.body.schedule,
+      returnStatusFunction);
 });
 
 //------------------------------------------Admin----------------------------------------
@@ -142,11 +157,12 @@ app.get('admin/Students', function(req, res) {
    {
    roomId: String,
    studentsMac: [String],
-   time : datetime
    }
  */
 app.post('/pidata', function (req, res) {
-
+  database.useClassIdByDate(req.body.roomId, function(returnClass) {
+    database.updateAttendances(returnClass, req.body.studentsMac, returnStatusFunction)
+  });
 });
 
 //------------------------------------------Errors---------------------------------------

@@ -9,7 +9,7 @@ var ClassSchema = new Schema({
     Students: [Number],
     LecturerId : Number,
     roomID : String,
-    schedule : [{day : String, start : Number, end : Number}],
+    schedule : [{day : Number, start : Number, end : Number}],
     numberOfClasses : Number
 });
 
