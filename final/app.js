@@ -33,7 +33,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function (id, done) {
   //If using Mongoose with MongoDB; if other you will need JS specific to that schema
-  User.findById(id, function (err, user) {
+  User.find({userName : id}, function (err, user) {
     done(err, user);
   });
 });
