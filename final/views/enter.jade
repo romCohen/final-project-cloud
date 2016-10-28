@@ -34,10 +34,14 @@ html(lang='en')
                                 username: $('#username').val(),
                                 password: $('#password').val()
                             },
-                            error:function(err){console.log(err);shake();}
+                            error:function(err){console.log(err);shake();},
+                            success:function(data, textStatus, jqXHR){
+                                window.location = data;
+                            }
                         });
                         return false;
                     });
+
                     function shake(){
                         var $formContainer = $('#formal');
                         $formContainer.addClass('invalid');

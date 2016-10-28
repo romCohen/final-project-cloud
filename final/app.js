@@ -78,15 +78,16 @@ app.post('/login',
     function(req, res) {
       // If this function gets called, authentication was successful.
       if (req.user.userRole == 'Admin') {
-        res.redirect('/adminMain')
+        res.end('/adminMain')
       } else if (req.user.userRole == 'Student') {
-        res.redirect('/students')
+        res.end('/students');
+        console.log("redirect to student");
+
       } else {
         // Shouldn't reach here, if so there is a bug in creating Users in the DB
         console.log("User " + user.username.toString + "has illegal role: " + req.user.userRole);
         res.redirect('/')
       }
-      res.redirect('/users/' + req.user.username);
     });
 
 // login - to check data
