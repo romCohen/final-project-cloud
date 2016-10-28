@@ -1,11 +1,12 @@
 class CourseAttendance extends React.Component {
-    var MAC_LENGTH = 17;
-    var ID_LENGTH = 9;
+
 
     constructor() {
         super();
         this.state = {courses: []};
         this.getCourses();
+        this.MAC_LENGTH = 17;
+        this.ID_LENGTH = 9;
     }
 
     getCourses() {
