@@ -33,9 +33,11 @@ class CourseAttendance extends React.Component {
 
 
     registerMac(){
-        return () => {
+        return (e) => {
+            e.preventDefault();
             let mac = $('#macInput').val();
-            let id = $('#idInput').val;
+            let id = $('#idInput').val();
+            console.log("here-------------");
             if(mac.length == this.MAC_LENGTH || id.toString().length == this.ID_LENGTH) {
                 $.ajax({
                     url: '/student/registermac',
@@ -54,6 +56,8 @@ class CourseAttendance extends React.Component {
             else{
                 this.shake()
             }
+            return false;
+
         }
     }
 
@@ -80,7 +84,7 @@ class CourseAttendance extends React.Component {
         return (
             <section>
                 <div className="registerMacDiv">
-                    <form onSubmit={this.registerMac.bind(this)}>
+                    <form onSubmit={this.registerMac().bind(this)}>
                         <input id="idInput" placeholder="Id number" type="number" required/>
                         <input id="macInput" placeholder="MAC" type="text" required/>
                         <button>Register</button>
