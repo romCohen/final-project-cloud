@@ -1,4 +1,6 @@
 class CourseAttendance extends React.Component {
+    var MAC_LENGTH = 17;
+    var ID_LENGTH = 9;
 
     constructor() {
         super();
@@ -19,25 +21,40 @@ class CourseAttendance extends React.Component {
     });
     }
 
+    shake(){
+        var $formContainer = $('#registerMacDiv');
+        $formContainer.addClass('invalid');
+        setTimeout(function () {
+            $formContainer.removeClass('invalid');
+        }, 500);
+    }
 
 
-    registerMac(k) {
+    registerMac(){
         return () => {
-            $.ajax({
+            let mac = $('#macInput').val();
+            let id = $('#idInput').val;
+            if(mac.length == this.MAC_LENGTH || id.toString().length == this.ID_LENGTH) {
+                $.ajax({
                     url: '/student/registermac',
-                    data: {id:$('idInput').val(), mac:$('macInput').val()},
+                    data: {id: $('idInput').val(), mac: $('macInput').val()},
                     dataType: "application/json",
                     method: "POST",
-                    success: (response) => {
-                    console.log("success");
-                    alert("your'e in, if the MAC is incorrect it's imperative that you update it.");
-        },
-            error: (jqXHR, textStatus, errorThrown)=> {
-                CourseAttendance.requestError('MAC Error', jqXHR);
+                    success: () => {
+                        console.log("success");
+                        alert("Your'e in,\nif the MAC is incorrect it's imperative that you update it.");
+                    },
+                    error: (jqXHR)=> {
+                        CourseAttendance.requestError('MAC Error', jqXHR);
+                    }
+                });
             }
-        });
+            else{
+                this.shake()
+            }
         }
     }
+
 
 
     static requestError(error, jqXHR, textStatus, errorThrown) {
@@ -60,7 +77,7 @@ class CourseAttendance extends React.Component {
     });
         return (
             <section>
-                <div className="newGameDiv">
+                <div className="registerMacDiv">
                     <form onSubmit={this.registerMac.bind(this)}>
                         <input id="idInput" placeholder="Id number" type="number" required/>
                         <input id="macInput" placeholder="MAC" type="text" required/>
