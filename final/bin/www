@@ -28,8 +28,13 @@ dataBase.init(function () {
   //fillDBTest();
   //dataBase.createStudent(11, [6521], "1234", "AS:ce:9e:8d:02:1d:e9",
       //function(err) {});
-  //dataBase.createClass(6522, "infi2", [10], 1, "Canada", [{day:"monday", start:12, end:13},
-  //  {day:"sunday", start:12, end:14}], function() {});
+  dataBase.createClass(6524, "algorithms2", [12, 11], 1, "Auditorium", [{day:"monday", start:12, end:13},
+    {day:"sunday", start:12, end:14}], function(err) {
+    if (err) console.error(err);
+  });
+  //dataBase.createStudent(12, "1234", "aslfkjakljfz", function() {
+  //
+  //});
   //dataBase.enrollStudentToClasses(10, [6522], function(classes) {
   //  dataBase.addClassesToStudent(classes, 10);
   //});
