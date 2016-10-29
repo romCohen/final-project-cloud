@@ -128,7 +128,7 @@ app.get('/students/data', function (req, res) {
 // TODO : add classes, remove classes
 
 app.post('/addStudent', function (req, res) {
-  dataBase.createStudent(req.body.id, req.body.classList, req.body.password, req.body.MACAddress,
+  dataBase.createStudent(req.body.id, req.body.courses, req.body.password, req.body.MACAddress,
       returnStatusFunction(res));
 });
 
@@ -145,7 +145,7 @@ app.all('/admin', function(req, res, next) {
 
 // Students data page
 app.get('/admin/Lecturer', function (req, res) {
-  res.render(); // TODO: Write the name of the file
+  res.render('adminView.jade'); // TODO: Write the name of the file
 });
 
 //Students data request
@@ -162,7 +162,7 @@ app.get('/admin/Lecturer/class/:classId', function (req, res) {
 // TODO : add classes, remove classes
 
 app.post('/admin/addLecturer', function (req, res) {
-  dataBase.createLecturer(req.body.id, req.body.classList, req.body.password, returnStatusFunction(res));
+  dataBase.createLecturer(req.body.id, req.body.courses, req.body.password, returnStatusFunction(res));
 });
 
 app.post('/admin/addClass', function (req, res) {
