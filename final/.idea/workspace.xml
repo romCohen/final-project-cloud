@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b58be3fe-37ff-431f-ad29-fcdbba0e17d5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DB.js" afterPath="$PROJECT_DIR$/DB.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/www" afterPath="$PROJECT_DIR$/bin/www" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/Class.js" afterPath="$PROJECT_DIR$/models/Class.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/Student.js" afterPath="$PROJECT_DIR$/models/Student.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/students.jsx" afterPath="$PROJECT_DIR$/public/javascripts/students.jsx" />
     </list>
     <ignored path="final.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,8 +29,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8224299">
-              <caret line="119" column="4" selection-start-line="119" selection-start-column="4" selection-end-line="119" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.38842976">
+              <caret line="99" column="61" selection-start-line="99" selection-start-column="61" selection-end-line="99" selection-end-column="61" />
               <folding />
             </state>
           </provider>
@@ -54,7 +49,7 @@
       <file leaf-file-name="DB.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DB.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.5185184">
+            <state vertical-scroll-proportion="13.925926">
               <caret line="351" column="28" selection-start-line="351" selection-start-column="28" selection-end-line="351" selection-end-column="28" />
               <folding>
                 <element signature="e#0#42#0" expanded="false" />
@@ -145,12 +140,12 @@
         <option value="$PROJECT_DIR$/views/enter.jade" />
         <option value="$PROJECT_DIR$/models/Class.js" />
         <option value="$PROJECT_DIR$/public/javascripts/students.jsx" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/bin/www" />
         <option value="internal/process/next_tick.js" />
         <option value="internal/util.js" />
         <option value="$PROJECT_DIR$/DB.js" />
         <option value="$PROJECT_DIR$/models/Student.js" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -875,7 +870,7 @@
       <workItem from="1476187565605" duration="1057000" />
       <workItem from="1476290818916" duration="3272000" />
       <workItem from="1477474410153" duration="27114000" />
-      <workItem from="1477556464111" duration="35728000" />
+      <workItem from="1477556464111" duration="35949000" />
     </task>
     <task id="LOCAL-00001" summary="Added DB">
       <created>1475146788663</created>
@@ -937,15 +932,21 @@
       <option name="project" value="LOCAL" />
       <updated>1477605377671</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="add name ot the student line&#10;">
+      <created>1477732369486</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1477732369486</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81599000" />
+    <option name="totallyTimeSpent" value="81820000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -955,7 +956,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -965,7 +966,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39925373" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39925373" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -990,7 +991,8 @@
     <MESSAGE value="Added DB" />
     <MESSAGE value="Added DB functions" />
     <MESSAGE value="Added DB functions and use points" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added DB functions and use points" />
+    <MESSAGE value="add name ot the student line&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="add name ot the student line&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1414,7 +1416,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DB.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.5185184">
+        <state vertical-scroll-proportion="13.925926">
           <caret line="351" column="28" selection-start-line="351" selection-start-column="28" selection-end-line="351" selection-end-column="28" />
           <folding>
             <element signature="e#0#42#0" expanded="false" />
@@ -1424,8 +1426,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8224299">
-          <caret line="119" column="4" selection-start-line="119" selection-start-column="4" selection-end-line="119" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.38842976">
+          <caret line="99" column="61" selection-start-line="99" selection-start-column="61" selection-end-line="99" selection-end-column="61" />
           <folding />
         </state>
       </provider>

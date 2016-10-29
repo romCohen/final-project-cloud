@@ -97,7 +97,7 @@ app.get('/', function (req, res) {
 
 // TODO: uncomment this
 //demand authentication from this point on
-app.all('*',require('connect-ensure-login').ensureLoggedIn('/login'),function(a,b,next){
+app.all('*',require('connect-ensure-login').ensureLoggedIn('/'),function(a,b,next){
   next();
 });
 
@@ -137,7 +137,7 @@ app.post('/addStudent', function (req, res) {
 
 app.all('/admin', function(req, res, next) {
   if (req.user.userRole !== 'Admin') {
-    res.redirect('/login');
+    res.redirect('/');
   } else {
     next();
   }
