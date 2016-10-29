@@ -225,10 +225,10 @@ function DB() {
      * Check if DB document of with the given lecturerId exists, if not create it
      * @param lecturerId - {int} The given lecturer ID
      * @param password - {String} The lecturer's password
-     * @param classesList - {Array} all the lecturer's class's IDs
+     * @param name - {String} The lecturer's name
      * @param cb - {Function} A call back function to use when function is over
      */
-    this.createLecturer = function(lecturerId, classesList, password, cb) {
+    this.createLecturer = function(lecturerId, password, name, cb) {
         // Make sure the lecturer doesn't exist in the DB
         Lecturer.find({id : lecturerId}, function(err, users) {
             if (err) throw err;
@@ -237,17 +237,25 @@ function DB() {
                 console.error(err);
                 cb(err);
             } else {
-                addNewUser(lecturerId, password, "Admin", function() {
-                    new Lecturer({
-                        id: lecturerId,
-                        classes: classesList
-                    }).save(function (err) {
-                        if (err) {
-                            console.error(err);
-                            cb(err);
-                        } else {
-                            cb(null)
-                        }
+                var cursor = Class.find({LecturerId: LecturerId}).corsor();
+                var classList = [];
+                cursor.on('data', function (classObj) {
+                    classList.push(classObj.id);
+                });
+                cursos.on('end', function() {
+                    addNewUser(lecturerId, password, "Admin", function() {
+                        new Lecturer({
+                            id: lecturerId,
+                            name: name,
+                            classes: classList
+                        }).save(function (err) {
+                            if (err) {
+                                console.error(err);
+                                cb(err);
+                            } else {
+                                cb(null)
+                            }
+                        });
                     });
                 });
             }
@@ -533,6 +541,7 @@ function DB() {
         cursor.on('data', function(lecturer) {
             lecturers.push({
                 id: lecturer.id,
+                name: lecturer.name,
                 classes: lecturer.classes
             })
         });

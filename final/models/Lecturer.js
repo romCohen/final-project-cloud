@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 
 var LecturerSchema = new Schema({
     id: Number,
+    name: String,
     classes: [Number]
 });
 
