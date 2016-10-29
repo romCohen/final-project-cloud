@@ -6,10 +6,16 @@ class AdminInterface extends React.Component {
     constructor() {
         super();
         this.state = {students: [], classes:[], lecturers:[]};
-        this.getCourses();
+        this.currentPanel = 0;
+        this.getAll("classes");
+        this.getAll("students");
+        this.getAll("lecturers");
 
     }
-
+    componentDidMount(){
+        this.panels = [$('#Courses'), $('#Students'), $('#Lecturers'), $('#editPanel'), $('#Manual'), $('#About')];
+        for(var i = 1; i< this.panels.length; i++)this.panels[i].hide();
+    }
     getCourseAttendance(course){
         $.ajax({url: '/admin/Lecturer/class/' + course,
             method: 'GET',
@@ -22,18 +28,21 @@ class AdminInterface extends React.Component {
     }
 
     addLecturer(){
-      id = null;//TODO
-      courses = null;
-      password = null;
+        var id = $("#id1").val();//TODO
+        var password = $("#pass1").val();
+        var name = $("#name1").val();
+        var lecturer = {'id': id, 'password':password, 'name':name};
+
       $.ajax({url: '/admin/addLecturer',
           dataType: 'json',
           'Content-type': 'application/json',
           method: "POST",
-          data:{'id': id, 'classList':courses, 'password':password},
+          data:lecturer,
           success: (res) => {
               alert('Great Success');
               var state = this.state;
               state.lecturers.add(lecturer);
+              this.setState(state);
           },
           error: (err)=>{
               alert(err.message);
@@ -44,18 +53,21 @@ class AdminInterface extends React.Component {
 
   createClass(){
       var id = null;//TODO
-      var courses = null;
-      var password = null;
-      var student = {'id': id, 'studentList':studentList, 'lecturerId':instructorId, 'roomId': roomId, 'schedule': schedule };
+      var studentList = null;
+      var instructorId = null;
+      var roomId = null;
+      var schedule = null;
+
+      var course = {'id': id, 'studentList':studentList, 'lecturerId':instructorId, 'roomId': roomId, 'schedule': schedule };
       $.ajax({url: '/admin/addClass',
           dataType: 'json',
           'Content-type': 'application/json',
           method: "POST",
-          data:student,
+          data:course,
           success: (res) => {
               alert('Great Success');
               var state = this.state;
-              state.students.add(student)
+              state.students.add(course)
               this.setState(state);
           },
           error: (err)=>{
@@ -80,8 +92,8 @@ class AdminInterface extends React.Component {
         });
     }
 
-    shake(){
-        var $formContainer = $('#registerMacDiv');
+    shake(containter){
+        var $formContainer = $(containter);
         $formContainer.addClass('invalid');
         setTimeout(function () {
             $formContainer.removeClass('invalid');
@@ -98,81 +110,118 @@ class AdminInterface extends React.Component {
         console.log("Ajax Error: " + textStatus, errorThrown);
     }
 
+    changePanel(to){
+        return function(e){
+            e.preventDefault();
+            this.panels[this.currentPanel].hide();
+            this.panels[to].show();
+            this.currentPanel = to;
+            return false;
+        }
+    }
+
     render() {
-        var courseList = Object.keys(this.state.courses).map((key, i) => {
+        console.log(this.currentPanel);
+        var courseList = Object.keys(this.state.classes).map((key, i) => {
             return (
                 <tr key={i}>
-                    <td data-th="Course name">{this.state.courses[key].name}</td>
-                    <td data-th="Course Number">{this.state.courses[key].number}</td>
-                    <td data-th="Attendence">{this.state.courses[key].attendance}</td>
+                    <td data-th="Course name">{this.state.classes[key].name}</td>
+                    <td data-th="Course Number">{this.state.classes[key].number}</td>
+                    <td data-th="Attendence">{this.state.classes[key].attendance}</td>
                 </tr>
             )
         });
         var studentList = Object.keys(this.state.students).map((key, i) => {
             return (
                 <tr key={i}>
-                    <td data-th="Course name">{this.state.courses[key].name}</td>
-                    <td data-th="Course Number">{this.state.courses[key].id}</td>
-                    <td data-th="Attendence">{this.state.courses[key].MAC}</td>
+                    <td data-th="Course name">{this.state.students[key].name}</td>
+                    <td data-th="Course Number">{this.state.students[key].id}</td>
+                    <td data-th="Attendence">{this.state.students[key].MAC}</td>
                 </tr>
             )
         });
-
+        var lecturerList = Object.keys(this.state.lecturers).map((key, i) => {
+            return (
+                <tr key={i}>
+                    <td data-th="Course name">{this.state.lecturers[key].name}</td>
+                    <td data-th="Course Number">{this.state.lecturers[key].id}</td>
+                    <td data-th="Attendence">{this.state.lecturers[key].courses}</td>
+                </tr>
+            )
+        });
+``
 
         return (
             <section>
 
                 <div id='main'>
-                    <div class='container'>
-                        //Course table ------------------------------------------------------------------
-                        <table id="Courses">
-                            <colgroup>
-                                <col style={{width:'20%'}}></col>
-                                <col style={{width:'20%'}}></col>
-                                <col style={{width:'50%'}}></col>
-                                <col style={{width:'10%'}}></col>
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>Course name</th>
-                                <th>Course Number</th>
-                                <th>Attendence</th>
-                            </tr>
-                            </thead>
-                            <tbody>{courseList}</tbody>
-                        </table>
-                        //--------------------------------------------------------------------------------
-                        //Students------------------------------------------------------------------------
-                        <table id="Students">
-                            <colgroup>
-                                <col style={{width:'20%'}}></col>
-                                <col style={{width:'20%'}}></col>
-                                <col style={{width:'50%'}}></col>
-                                <col style={{width:'10%'}}></col>
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>Student name</th>
-                                <th>Id Number</th>
-                                <th>MAC</th>
-                            </tr>
-                            </thead>
-                            <tbody>{studentList}</tbody>
-                        </table>
-                        //Edit-----------------------------------------------------------------------------
-                        <div id="editPanel">
+                    <div className='container'>
+                        <div id="Courses" style={{visibility:'visible'}}>
+                            <table >
+                                <colgroup>
+                                    <col style={{width:'20%'}}></col>
+                                    <col style={{width:'20%'}}></col>
+                                    <col style={{width:'50%'}}></col>
+                                    <col style={{width:'10%'}}></col>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>Course name</th>
+                                    <th>Course Number</th>
+                                    <th>Attendence</th>
+                                </tr>
+                                </thead>
+                                <tbody>{courseList}</tbody>
+                            </table>
+                        </div>
+                        <div id="Students" style={{visibility:'visible'}}>
+                            <table>
+                                <colgroup>
+                                    <col style={{width:'20%'}}></col>
+                                    <col style={{width:'20%'}}></col>
+                                    <col style={{width:'50%'}}></col>
+                                    <col style={{width:'10%'}}></col>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>Student name</th>
+                                    <th>Id Number</th>
+                                    <th>MAC</th>
+                                </tr>
+                                </thead>
+                                <tbody>{studentList}</tbody>
+                            </table>
+                        </div>
+                        <div id="Lecturers" >
+                            <table>
+                                <colgroup>
+                                    <col style={{width:'20%'}}></col>
+                                    <col style={{width:'20%'}}></col>
+                                    <col style={{width:'50%'}}></col>
+                                    <col style={{width:'10%'}}></col>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>Instructor name</th>
+                                    <th>Id Number</th>
+                                    <th>Courses</th>
+                                </tr>
+                                </thead>
+                                <tbody>{lecturerList}</tbody>
+                            </table>
+                        </div>
+                        <div id="editPanel" style={{visibility:'visible'}}>
                             <form>
-                                Add Course<br>
-                                <input type="text" value="username"/>
-
-                                <input type="password"/>
-
+                                Add Lecturer<br/>
+                                <input type="text" placeholder="Name" id="name1"/>
+                                <input type="text" placeholder="Id number" id="id1"/>
+                                <input type="text" placeholder="Password" id="pass1"/>
                                 <input type="submit"/>
-
                             </form>
+
                             <form>
-                                Add Course<br>
-                                <input type="text" value="username"/>
+                                Add Course<br/>
+                                <input type="text" placeholder="Course Title" id="name2"/>
 
                                 <input type="password"/>
 
@@ -180,16 +229,26 @@ class AdminInterface extends React.Component {
 
                             </form>
                         </div>
-                        <navbar class="fixed-top">
-                            <div class='nav-fostrap'>
+                        <div id="Manual" style={{visibility:'visible'}}>
+                            <b>This is an inteface for viewing and managing the attendace system,</b><br/><br/>
+                            the first three tabs(from the left) allow you to view the database directly<br/>
+                            the fourth tab allows you to add both users and Courses for which attendance will be taken.
+
+                        </div>
+                        <div id="About" style={{visibility:'visible'}}>
+                            <p>If you removed all of a person's veins and arteries,</p><p>and laid them end to end,</p><h4>then that person will die.</h4>
+                        </div>
+                        <navbar className="fixed-top">
+                            <div className='nav-fostrap'>
                                 <ul>
-                                    <li><a href='#' >Courses</a> </li>
-                                    <li><a hrf='#' >Students</a> </li>
-                                    <li><a href='#' >Edit</a></li>
-                                    <li><a href='#'>Help<span class='arrow-down'></span></a>
-                                        <ul class='dropdown'>
-                                            <li><a href=''>Manual</a></li>
-                                            <li><a href=''>About</a></li>
+                                    <li><a href='javascript:;' onClick={(this.changePanel(0)).bind(this)} >Courses</a> </li>
+                                    <li><a href='javascript:;' onClick={(this.changePanel(1)).bind(this)} >Students</a> </li>
+                                    <li><a href='javascript:;' onClick={(this.changePanel(2)).bind(this)} >Lecturers</a> </li>
+                                    <li><a href='javascript:;' onClick={(this.changePanel(3)).bind(this)} >Edit</a></li>
+                                    <li><a href='javascript:;' onClick={(e)=>{e.preventDefault(); return false;}}>Help<span className='arrow-down'></span></a>
+                                        <ul className='dropdown'>
+                                            <li><a href='javascript:;' onClick={(this.changePanel(4)).bind(this)} >Manual</a></li>
+                                            <li><a href='javascript:;' onClick={(this.changePanel(5)).bind(this)} >About</a></li>
                                         </ul>
                                     </li>
                                 </ul>

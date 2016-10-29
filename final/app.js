@@ -173,7 +173,7 @@ app.post('/admin/addClass', function (req, res) {
 //------------------------------------------Admin----------------------------------------
 
 app.get('/adminMain', function (req, res) {
-  res.render(); // TODO: Write the name of the file
+  res.render('adminView.jade'); // TODO: Write the name of the file
 });
 
 app.get('/admin/students', function(req, res) {
