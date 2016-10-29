@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b58be3fe-37ff-431f-ad29-fcdbba0e17d5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DB.js" afterPath="$PROJECT_DIR$/DB.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/Lecturer.js" afterPath="$PROJECT_DIR$/models/Lecturer.js" />
     </list>
     <ignored path="final.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,11 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.925926">
-              <caret line="156" column="16" selection-start-line="156" selection-start-column="16" selection-end-line="156" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.5443925">
+              <caret line="164" column="72" selection-start-line="164" selection-start-column="72" selection-end-line="164" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -48,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DB.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DB.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DB.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.61214954">
-              <caret line="543" column="36" selection-start-line="543" selection-start-column="36" selection-end-line="543" selection-end-column="36" />
+            <state vertical-scroll-proportion="-5.259259">
+              <caret line="230" column="4" selection-start-line="230" selection-start-column="4" selection-end-line="230" selection-end-column="4" />
               <folding>
                 <element signature="e#0#42#0" expanded="false" />
               </folding>
@@ -145,9 +143,9 @@
         <option value="$PROJECT_DIR$/models/Student.js" />
         <option value="$PROJECT_DIR$/bin/www" />
         <option value="internal/process/next_tick.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/models/Lecturer.js" />
         <option value="$PROJECT_DIR$/DB.js" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -872,7 +870,7 @@
       <workItem from="1476187565605" duration="1057000" />
       <workItem from="1476290818916" duration="3272000" />
       <workItem from="1477474410153" duration="27114000" />
-      <workItem from="1477556464111" duration="46546000" />
+      <workItem from="1477556464111" duration="46649000" />
     </task>
     <task id="LOCAL-00001" summary="Added DB">
       <created>1475146788663</created>
@@ -958,11 +956,17 @@
       <option name="project" value="LOCAL" />
       <updated>1477755888094</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Removed classList from create lecturer, and add name to Lecturer Schema">
+      <created>1477768454641</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1477768454641</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92417000" />
+    <option name="totallyTimeSpent" value="92520000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
@@ -1015,7 +1019,8 @@
     <MESSAGE value="redirect unauthenticated user to '/'" />
     <MESSAGE value="redirect to '/' when student tries to access an admin path" />
     <MESSAGE value="Added documentation and can't have 2 classes with the same schedule" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added documentation and can't have 2 classes with the same schedule" />
+    <MESSAGE value="Removed classList from create lecturer, and add name to Lecturer Schema" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed classList from create lecturer, and add name to Lecturer Schema" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1347,14 +1352,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.925926">
-          <caret line="156" column="16" selection-start-line="156" selection-start-column="16" selection-end-line="156" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/Class.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1387,11 +1384,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DB.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.61214954">
-          <caret line="543" column="36" selection-start-line="543" selection-start-column="36" selection-end-line="543" selection-end-column="36" />
+        <state vertical-scroll-proportion="-5.259259">
+          <caret line="230" column="4" selection-start-line="230" selection-start-column="4" selection-end-line="230" selection-end-column="4" />
           <folding>
             <element signature="e#0#42#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5443925">
+          <caret line="164" column="72" selection-start-line="164" selection-start-column="72" selection-end-line="164" selection-end-column="72" />
+          <folding />
         </state>
       </provider>
     </entry>

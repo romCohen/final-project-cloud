@@ -162,7 +162,7 @@ app.get('/admin/Lecturer/class/:classId', function (req, res) {
 // TODO : add classes, remove classes
 
 app.post('/admin/addLecturer', function (req, res) {
-  dataBase.createLecturer(req.body.id, req.body.password, returnStatusFunction(res));
+  dataBase.createLecturer(req.body.id, req.body.password, req.body.name, returnStatusFunction(res));
 });
 
 app.post('/admin/addClass', function (req, res) {
