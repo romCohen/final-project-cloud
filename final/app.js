@@ -135,7 +135,7 @@ app.post('/addStudent', function (req, res) {
 
 //------------------------------------------Lecturer-------------------------------------
 
-app.all('/admin', function(req, res, next) {
+app.all('/admin*', function(req, res, next) {
   if (req.user.userRole !== 'Admin') {
     res.redirect('/');
   } else {
