@@ -298,9 +298,11 @@ function DB() {
         var cursor = Class.find({roomID : roomId}).cursor();
         cursor.on('data', function(classObj) {
             for (var i = 0; i < classObj.schedule.length; i++){
-                if (classObj.schedule[i].day === currentDate.getDay() &&
-                    classObj.schedule[i].start === currentDate.getHours() &&
-                    classObj.schedule[i].end >= currentDate.getHours()) {
+                var day = currentDate.getDay();
+                var hours = currentDate.getHours();
+                if (classObj.schedule[i].day === day &&
+                    classObj.schedule[i].start === hours &&
+                    classObj.schedule[i].end >= hours) {
                     returnClass = classObj;
                     break;
                 }
@@ -337,7 +339,7 @@ function DB() {
                 for (var i = 0; i < classSchedule.length; i++) {
                     classSchedule[i].day = weekday[classSchedule[i].day.toLowerCase()];
                 }
-                schedulecursor.on('data', function (classObj) {
+                scheduleCursor.on('data', function (classObj) {
                     for (var i = 0; i < classObj.schedule.length; i++) {
                         for (var j = 0; j < classSchedule.length; j++) {
                             if (classObj.schedule[i].day === classSchedule[j].day &&
@@ -349,7 +351,7 @@ function DB() {
                         }
                     }
                 });
-                schedulecursor.on('end', function() {
+                scheduleCursor.on('end', function() {
                     if (scheduledClass != null) {
                         cb("Class " + scheduledClass.id + " is all ready scheduled on this time")
                     } else {
@@ -425,7 +427,7 @@ function DB() {
             for (var i = 0; i < classes.length; i++) {
                 if (classes[i].classId === classObj.id) {
                     // update the class
-                    classes.attendance++;
+                    classes[i].attendance++;
                     student.save(function (err) {
                         if (err) {
                             console.log(err);
@@ -436,6 +438,7 @@ function DB() {
                 }
             }
         });
+        cursor.on('end', function() {cb(false)})
 
     };
 

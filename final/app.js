@@ -90,6 +90,22 @@ app.post('/login',
       }
     });
 
+
+//---------------------------------------------Pi----------------------------------------
+
+// Data from raspberry Pi
+/*
+ {
+ roomId: String,
+ studentsMac: [String],
+ }
+ */
+app.post('/pidata', function (req, res) {
+  dataBase.useClassIdByDate(req.body.roomId, function(returnClass) {
+    dataBase.updateAttendances(returnClass, req.body.studentsMac, returnStatusFunction(res))
+  });
+});
+
 // login - to check data
 app.get('/', function (req, res) {
   res.render('enter.jade');
@@ -194,21 +210,6 @@ app.get('/admin/lecturers', function(req, res) {
   })
 });
 
-
-//---------------------------------------------Pi----------------------------------------
-
-// Data from raspberry Pi
-/*
-   {
-   roomId: String,
-   studentsMac: [String],
-   }
- */
-app.post('/pidata', function (req, res) {
-  database.useClassIdByDate(req.body.roomId, function(returnClass) {
-    database.updateAttendances(returnClass, req.body.studentsMac, returnStatusFunction(res))
-  });
-});
 
 //------------------------------------------Errors---------------------------------------
 
