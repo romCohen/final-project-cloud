@@ -27,10 +27,10 @@ app.use(cookieParser());
 app.use(session({ secret: 'hold the door' }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(busboy())
+app.use(busboy());
 
 passport.serializeUser(function(user, done) {
-  done(null, user.username);
+  done(null, user);
 });
 
 passport.deserializeUser(function (user, done) {
@@ -97,9 +97,9 @@ app.get('/', function (req, res) {
 
 // TODO: uncomment this
 //demand authentication from this point on
-//app.all('*',require('connect-ensure-login').ensureLoggedIn('/login'),function(a,b,next){
-//  next();
-//});
+app.all('*',require('connect-ensure-login').ensureLoggedIn('/'),function(a,b,next){
+  next();
+});
 
 //------------------------------------------Student-------------------------------------
 
@@ -116,7 +116,7 @@ app.get('/students/data', function (req, res) {
   //  } else {
   //    res.status(200).json(classes);
   //  }
-  dataBase.getStudentAttendance(10, function(classes) {
+  dataBase.getStudentAttendance(req.user.username, function(classes) {
     if (!classes) {
       res.status(500).end(classes);
     } else {
@@ -135,9 +135,9 @@ app.post('/addStudent', function (req, res) {
 
 //------------------------------------------Lecturer-------------------------------------
 
-app.all('/admin', function(req, res, next) {
+app.all('/admin*', function(req, res, next) {
   if (req.user.userRole !== 'Admin') {
-    res.redirect('/login');
+    res.redirect('/');
   } else {
     next();
   }

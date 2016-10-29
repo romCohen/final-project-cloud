@@ -66,7 +66,7 @@ function DB() {
      * @param classesList Array of classes IDs
      * @return {Array} size of 2, first is array of existing classes, second is non-existing classes.
      */
-    var enrollStudentToClasses = function(studentId, classesList, cb) {
+    this.enrollStudentToClasses = function(studentId, classesList, cb) {
 
         // check the classes id's exist in th DB
         var classes = [];
@@ -74,8 +74,8 @@ function DB() {
         cursor.on('data', function(classObj) {
             console.log(classObj);
             var index = classesList.indexOf(classObj.id);
-            if (index != -1) {
-                classes.push({classId : classObj.id, attendance : 0});
+            if (index !== -1) {
+                classes.push({classId : classObj.id, name: classObj.name, attendance : 0});
             }
         });
         cursor.on('end', function() {
@@ -93,6 +93,23 @@ function DB() {
             classCursor.on('end', function() {cb(classes);})
         });
     };
+
+    this.addClassesToStudent = function(newClasses, studentId) {
+        Student.findOne({id: studentId}, function(err, student) {
+            if (err) throw err;
+            var classesToAdd = [];
+            for (var i = 0; i < newClasses.length; i++) {
+                var index = inClasses(student.classes, newClasses[i].classId);
+                if (index === -1){
+                    classesToAdd.push(newClasses[i])
+                }
+            }
+            student.classes = student.classes.concat(classesToAdd);
+            student.save(function (err) {
+                if (err) return console.log(err);
+            });
+        })
+    }
 
     /**
      * Check if DB instance of with the given studentId exists, if not create it.
@@ -210,7 +227,7 @@ function DB() {
      * @param studentId
      * @param classesList
      */
-    this.createClass = function(classId, studentsList, lecturerId, roomName, classSchedule, cb) {
+    this.createClass = function(classId, className, studentsList, lecturerId, roomName, classSchedule, cb) {
         // Make sure the lecturer doesn't exist in the DB
         Class.find({id : classId}, function(err, users) {
             if (err) throw err;
@@ -224,7 +241,8 @@ function DB() {
                 }
                 new Class({
                     id: classId,
-                    Students: [],
+                    name: className,
+                    Students: studentsList,
                     LecturerId : lecturerId,
                     schedule : classSchedule,
                     roomID : roomName,
@@ -418,6 +436,7 @@ function DB() {
         cursor.on('data', function(classObj) {
             classes.push({
                 id: classObj.id,
+                name: classObj.name,
                 Students: classObj.Students,
                 LecturerId : classObj.LecturerId,
                 roomID : classObj.roomID,

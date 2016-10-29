@@ -28,6 +28,11 @@ dataBase.init(function () {
   //fillDBTest();
   //dataBase.createStudent(11, [6521], "1234", "AS:ce:9e:8d:02:1d:e9",
       //function(err) {});
+  //dataBase.createClass(6522, "infi2", [10], 1, "Canada", [{day:"monday", start:12, end:13},
+  //  {day:"sunday", start:12, end:14}], function() {});
+  //dataBase.enrollStudentToClasses(10, [6522], function(classes) {
+  //  dataBase.addClassesToStudent(classes, 10);
+  //});
   port = normalizePort(process.env.PORT || '3000');
   app.set('port', port);
 
@@ -47,7 +52,7 @@ dataBase.init(function () {
 function fillDBTest() {
   dataBase.createLecturer(1, [1,2], "admin", function(err) {
     if (!err) {
-      dataBase.createClass(6521, [], 1, "Canada", [{day:"monday", start:12, end:13},
+      dataBase.createClass(6521, "infi", [], 1, "Canada", [{day:"monday", start:12, end:13},
         {day:"sunday", start:12, end:14}],
           function(err){
             if (!err) {

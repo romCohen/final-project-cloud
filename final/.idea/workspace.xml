@@ -26,22 +26,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.592592">
-              <caret line="136" column="0" selection-start-line="136" selection-start-column="0" selection-end-line="142" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.43925235">
+              <caret line="139" column="4" selection-start-line="139" selection-start-column="4" selection-end-line="139" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="error.jade" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/error.jade">
+      <file leaf-file-name="www" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bin/www">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="-6.6666665">
+              <caret line="34" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DB.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DB.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="11.703704">
+              <caret line="351" column="28" selection-start-line="351" selection-start-column="28" selection-end-line="351" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#42#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -50,42 +62,18 @@
         <entry file="file://$PROJECT_DIR$/public/javascripts/students.jsx">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="77" column="49" selection-start-line="77" selection-start-column="42" selection-end-line="77" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="enter.jade" pinned="false" current-in-tab="true">
+      <file leaf-file-name="enter.jade" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/enter.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.1565421">
-              <caret line="33" column="34" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
+            <state vertical-scroll-proportion="-22.777779">
+              <caret line="41" column="34" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.0">
-              <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
-              <folding>
-                <marker date="1477589330000" expanded="true" signature="75:110" placeholder="{&quot;start&quot;: &quot;node ./bin/www&quot;...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DB.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DB.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.851851">
-              <caret line="385" column="18" selection-start-line="385" selection-start-column="18" selection-end-line="385" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#42#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -102,36 +90,24 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Class.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/Class.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#42#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Student.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/Student.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-2.7777777">
-              <caret line="5" column="11" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="11" />
+              <caret line="5" column="36" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="36" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Lecturer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/Lecturer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.3333333">
-              <caret line="8" column="11" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="11" />
-              <folding>
-                <element signature="e#0#42#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Class.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/Class.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.8888888">
-              <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#42#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -160,15 +136,16 @@
         <option value="$PROJECT_DIR$/models/Lecturer.js" />
         <option value="$PROJECT_DIR$/models/Classes.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="internal/util.js" />
-        <option value="$PROJECT_DIR$/models/Class.js" />
-        <option value="$PROJECT_DIR$/models/Student.js" />
         <option value="$PROJECT_DIR$/models/Users.js" />
-        <option value="$PROJECT_DIR$/bin/www" />
-        <option value="$PROJECT_DIR$/DB.js" />
-        <option value="internal/process/next_tick.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/views/enter.jade" />
+        <option value="$PROJECT_DIR$/models/Class.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/students.jsx" />
+        <option value="$PROJECT_DIR$/bin/www" />
+        <option value="internal/process/next_tick.js" />
+        <option value="internal/util.js" />
+        <option value="$PROJECT_DIR$/DB.js" />
+        <option value="$PROJECT_DIR$/models/Student.js" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -180,8 +157,7 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1571" />
-    <option name="y" value="51" />
+    <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="873" />
   </component>
@@ -302,6 +278,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javascripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="final" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="final" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -335,7 +329,7 @@
     <property name="javascript.nodejs.core.library.configured.version" value="6.2.1" />
     <property name="recentsLimit" value="5" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
   </component>
@@ -353,12 +347,9 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/../final-project-cloud2.iml</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/app.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/bin/www</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/package.json</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/public/javascripts/students.jsx</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/views/enter.jade</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/views/index.jade</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -366,9 +357,7 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/public/javascripts/students.jsx</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/public/stylesheets/students.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/views/studentView.jade</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/views/adminView.jade</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -881,7 +870,7 @@
       <workItem from="1476187565605" duration="1057000" />
       <workItem from="1476290818916" duration="3272000" />
       <workItem from="1477474410153" duration="27114000" />
-      <workItem from="1477556464111" duration="23019000" />
+      <workItem from="1477556464111" duration="36601000" />
     </task>
     <task id="LOCAL-00001" summary="Added DB">
       <created>1475146788663</created>
@@ -937,15 +926,33 @@
       <option name="project" value="LOCAL" />
       <updated>1477589392183</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added DB functions and use points">
+      <created>1477605377671</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1477605377671</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add name ot the student line&#10;">
+      <created>1477732369486</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1477732369486</updated>
+    </task>
+    <task id="LOCAL-00012" summary="redirect unauthenticated user to '/'">
+      <created>1477736425633</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1477736425633</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68890000" />
+    <option name="totallyTimeSpent" value="82472000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1571" y="51" width="1440" height="873" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="873" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -965,7 +972,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39925373" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39925373" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -990,14 +997,16 @@
     <MESSAGE value="Added DB" />
     <MESSAGE value="Added DB functions" />
     <MESSAGE value="Added DB functions and use points" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added DB functions and use points" />
+    <MESSAGE value="add name ot the student line&#10;" />
+    <MESSAGE value="redirect unauthenticated user to '/'" />
+    <option name="LAST_COMMIT_MESSAGE" value="redirect unauthenticated user to '/'" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/DB.js</url>
-          <line>133</line>
+          <line>150</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -1007,68 +1016,72 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/DB.js</url>
-          <line>111</line>
+          <line>128</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/DB.js</url>
-          <line>126</line>
+          <line>143</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/DB.js</url>
-          <line>71</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/DB.js</url>
-          <line>92</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/DB.js</url>
-          <line>75</line>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/DB.js</url>
-          <line>367</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>152</line>
+          <line>153</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>178</line>
+          <line>179</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>45</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/app.js</url>
-          <line>79</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/app.js</url>
-          <line>47</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/app.js</url>
-          <line>174</line>
+          <line>175</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/DB.js</url>
+          <line>106</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/DB.js</url>
+          <line>101</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/DB.js</url>
+          <line>103</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app.js</url>
+          <line>138</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app.js</url>
+          <line>152</line>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app.js</url>
+          <line>139</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app.js</url>
+          <line>141</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="47" />
+      <option name="time" value="77" />
     </breakpoint-manager>
     <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app.js">
@@ -1304,14 +1317,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.5555553">
-          <caret line="30" column="36" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.0">
@@ -1322,38 +1327,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Class.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.8888888">
-          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/Lecturer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.3333333">
           <caret line="8" column="11" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Student.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.7777777">
-          <caret line="5" column="11" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DB.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.851851">
-          <caret line="385" column="18" selection-start-line="385" selection-start-column="18" selection-end-line="385" selection-end-column="18" />
           <folding>
             <element signature="e#0#42#0" expanded="false" />
           </folding>
@@ -1370,7 +1347,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/students.jsx">
+    <entry file="file://$PROJECT_DIR$/views/error.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1378,15 +1355,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
+    <entry file="file://$PROJECT_DIR$/views/studentsView.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.592592">
-          <caret line="136" column="0" selection-start-line="136" selection-start-column="0" selection-end-line="142" selection-end-column="3" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/error.jade">
+    <entry file="file://$PROJECT_DIR$/views/layout.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1396,8 +1373,68 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/enter.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1565421">
-          <caret line="33" column="34" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
+        <state vertical-scroll-proportion="-22.777779">
+          <caret line="41" column="34" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/mongoose/lib/model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47162426">
+          <caret line="3339" column="15" selection-start-line="3339" selection-start-column="15" selection-end-line="3339" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.6666665">
+          <caret line="34" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Student.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.7777777">
+          <caret line="5" column="36" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Class.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/students.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="77" column="49" selection-start-line="77" selection-start-column="42" selection-end-line="77" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DB.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="11.703704">
+          <caret line="351" column="28" selection-start-line="351" selection-start-column="28" selection-end-line="351" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43925235">
+          <caret line="139" column="4" selection-start-line="139" selection-start-column="4" selection-end-line="139" selection-end-column="4" />
           <folding />
         </state>
       </provider>
