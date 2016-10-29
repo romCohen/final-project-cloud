@@ -128,7 +128,7 @@ app.get('/students/data', function (req, res) {
 // TODO : add classes, remove classes
 
 app.post('/addStudent', function (req, res) {
-  dataBase.createStudent(req.body.id, req.body.courses, req.body.password, req.body.MACAddress,
+  dataBase.createStudent(req.body.id, req.body.classList, req.body.password, req.body.MACAddress,
       returnStatusFunction(res));
 });
 
@@ -162,7 +162,7 @@ app.get('/admin/Lecturer/class/:classId', function (req, res) {
 // TODO : add classes, remove classes
 
 app.post('/admin/addLecturer', function (req, res) {
-  dataBase.createLecturer(req.body.id, req.body.courses, req.body.password, returnStatusFunction(res));
+  dataBase.createLecturer(req.body.id, req.body.password, req.body.name, returnStatusFunction(res));
 });
 
 app.post('/admin/addClass', function (req, res) {
