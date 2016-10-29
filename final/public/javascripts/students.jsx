@@ -75,7 +75,7 @@ class CourseAttendance extends React.Component {
         var courseList = Object.keys(this.state.courses).map((key, i) => {
                 return (
             <tr key={i}>
-    <td data-th="Course name">{this.state.courses[key]._id}</td>
+    <td data-th="Course name">{this.state.courses[key].name}</td>
         <td data-th="Course Number">{this.state.courses[key].classId}</td>
         <td data-th="Attendence">{this.state.courses[key].attendance}</td>
         </tr>
