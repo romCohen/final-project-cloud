@@ -1,4 +1,4 @@
-class CourseAttendance extends React.Component {
+class AdminInterface extends React.Component {
 
 
     constructor() {
@@ -19,12 +19,12 @@ class CourseAttendance extends React.Component {
                 this.setState({courses: res})
                 console.log(res)
     },
-        error: CourseAttendance.requestError
+        error: AdminInterface.requestError
     });
     }
 
     shake(){
-        var $formContainer = $('#registerMacDiv');
+        var $formContainer = $('#formula');
         $formContainer.addClass('invalid');
         setTimeout(function () {
             $formContainer.removeClass('invalid');
@@ -41,7 +41,7 @@ class CourseAttendance extends React.Component {
             if(mac.length == this.MAC_LENGTH || id.toString().length == this.ID_LENGTH) {
                 $.ajax({
                     url: '/student/registermac',
-                    data: {id: $('idInput').val(), mac: $('macInput').val()},
+                    data: {id: id, mac:mac},
                     dataType: "application/json",
                     method: "POST",
                     success: () => {
@@ -49,11 +49,12 @@ class CourseAttendance extends React.Component {
                         alert("Your'e in,\nif the MAC is incorrect it's imperative that you update it.");
                     },
                     error: (jqXHR)=> {
-                        CourseAttendance.requestError('MAC Error', jqXHR);
+                        AdminInterface.requestError('MAC Error', jqXHR);
                     }
                 });
             }
             else{
+                console.log("bad input")
                 this.shake()
             }
             return false;
@@ -84,7 +85,7 @@ class CourseAttendance extends React.Component {
         return (
             <section>
                 <div className="registerMacDiv">
-                    <form onSubmit={this.registerMac().bind(this)}>
+                    <form id="formula" onSubmit={this.registerMac().bind(this)}>
                         <input id="idInput" placeholder="Id number" type="number" required/>
                         <input id="macInput" placeholder="MAC" type="text" required/>
                         <button>Register</button>
@@ -112,4 +113,4 @@ class CourseAttendance extends React.Component {
 }
 
 
-ReactDOM.render(React.createElement(CourseAttendance), document.getElementById("courseListContainer"));
+ReactDOM.render(React.createElement(AdminInterface), document.getElementById("courseListContainer"));
