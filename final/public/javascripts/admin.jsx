@@ -126,26 +126,30 @@ class AdminInterface extends React.Component {
             return (
                 <tr key={i}>
                     <td data-th="Course name">{this.state.classes[key].name}</td>
-                    <td data-th="Course Number">{this.state.classes[key].number}</td>
-                    <td data-th="Attendence">{this.state.classes[key].attendance}</td>
+                    <td data-th="Course Number">{this.state.classes[key].id}</td>
+                    <td data-th="Attendence">{this.state.classes[key].Students.toString()}</td>
                 </tr>
             )
         });
         var studentList = Object.keys(this.state.students).map((key, i) => {
+            var classIds = []
+            this.state.students[key].classes.forEach((course)=>{
+               classIds.push(course.classId);
+            });
             return (
                 <tr key={i}>
-                    <td data-th="Course name">{this.state.students[key].name}</td>
                     <td data-th="Course Number">{this.state.students[key].id}</td>
                     <td data-th="Attendence">{this.state.students[key].MAC}</td>
+                    <td data-th="Course name">{classIds.toString()}</td>
                 </tr>
             )
         });
         var lecturerList = Object.keys(this.state.lecturers).map((key, i) => {
+            console.log(this.state.lecturers[key]);
             return (
                 <tr key={i}>
-                    <td data-th="Course name">{this.state.lecturers[key].name}</td>
-                    <td data-th="Course Number">{this.state.lecturers[key].id}</td>
-                    <td data-th="Attendence">{this.state.lecturers[key].courses}</td>
+                    <td data-th="Instructor id Number">{this.state.lecturers[key].id}</td>
+                    <td data-th="Courses">{this.state.lecturers[key].classes.toString()}</td>
                 </tr>
             )
         });
@@ -168,7 +172,7 @@ class AdminInterface extends React.Component {
                                 <tr>
                                     <th>Course name</th>
                                     <th>Course Number</th>
-                                    <th>Attendence</th>
+                                    <th>Students</th>
                                 </tr>
                                 </thead>
                                 <tbody>{courseList}</tbody>
@@ -184,9 +188,9 @@ class AdminInterface extends React.Component {
                                 </colgroup>
                                 <thead>
                                 <tr>
-                                    <th>Student name</th>
-                                    <th>Id Number</th>
+                                    <th>Student Id</th>
                                     <th>MAC</th>
+                                    <th>Courses</th>
                                 </tr>
                                 </thead>
                                 <tbody>{studentList}</tbody>
@@ -202,7 +206,6 @@ class AdminInterface extends React.Component {
                                 </colgroup>
                                 <thead>
                                 <tr>
-                                    <th>Instructor name</th>
                                     <th>Id Number</th>
                                     <th>Courses</th>
                                 </tr>
