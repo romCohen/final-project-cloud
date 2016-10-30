@@ -13,6 +13,8 @@ def restart():
     output = process.communicate()[0]
     print(output)
 
+
+
 MAC_FILE = "/var/tmp/req.txt"
 SERVER_ENDPOINT = "http://192.168.1.104/"
 OPERATION_TIME = 40
@@ -20,10 +22,11 @@ CAPTURE_CMD = "sudo timeout " + str(OPERATION_TIME) + " tcpdump -e -i mon0 -ni m
 MAC_LENGTH = 17
 
 subprocess.call('sudo airmon-ng start wlan0', shell=True)
+
 with open(MAC_FILE, 'w') as macfile:
     p = subprocess.Popen(CAPTURE_CMD, stdout=macfile, shell=True)
     p.communicate()
-
+subprocess.call('sudo airmon-ng stop mon0', shell=True)
 macs = []
 
 with open(MAC_FILE, 'r') as captured:
