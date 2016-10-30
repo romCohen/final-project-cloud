@@ -136,7 +136,7 @@ app.get('/students/data', function (req, res) {
 });
 
 app.post('/students/update_MAC', function(req, res) {
-  dataBase.updateMACAddress(req.user.username, req.body.MACAddress, returnStatusFunction(res)));
+  dataBase.updateMACAddress(req.user.username, req.body.MACAddress, returnStatusFunction(res));
 });
 
 // TODO : add classes, remove classes
@@ -180,7 +180,8 @@ app.post('/admin/addLecturer', function (req, res) {
 });
 
 app.post('/admin/addClass', function (req, res) {
-  dataBase.createClass(req.body.id, req.body.studentList, req.body.lecturerId, req.body.roomId, req.body.schedule,
+  var schedule = {day: req.body['schedule[day]'], start:req.body['schedule[start]'],  end:req.body['schedule[end]']};
+  dataBase.createClass(req.body.id, req.body.name,req.body.studentList, req.body.lecturerId, req.body.roomId, schedule,
       returnStatusFunction(res));
 });
 

@@ -2,16 +2,10 @@ import requests
 import re
 import subprocess
 import time
-import pickle
 #CONFIG
 CLASSROOM = 1
 ###
-#
-# def restart():
-#     command = "/usr/bin/sudo /sbin/shutdown -r now"
-#     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
-#     output = process.communicate()[0]
-#     print(output)
+
 
 
 
@@ -49,7 +43,13 @@ print("macs", macs)
 #post to server
 payload = {"class": CLASSROOM, "students": macs}
 requests.post(SERVER_ENDPOINT, data=payload)
-#restart()
 
+
+
+# def restart():
+#     command = "/usr/bin/sudo /sbin/shutdown -r now"
+#     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+#     output = process.communicate()[0]
+#     print(output)
 
 

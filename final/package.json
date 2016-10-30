@@ -17,6 +17,7 @@
     "passport-local": "~1.0.0",
     "express-session": "latest",
     "mongoose": "latest",
-    "passport-local-mongoose": "latest"
+    "passport-local-mongoose": "latest",
+    "connect-busboy": "latest"
   }
 }

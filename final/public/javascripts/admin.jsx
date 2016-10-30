@@ -52,33 +52,54 @@ class AdminInterface extends React.Component {
       });
     }
 
-  createClass(e){
-      e.preventDefault();
-      var name = $('#name2').val();
-      var id = $('#courseNumber2').val();//TODO
-      var studentList = $('#studentList2').val();
-      var lecturerId = $('#instructor2').val();
-      var roomId = $('#roomId2').val();
-      var day = $('#day2').val();
-      var hour = parseInt($('#hour2').val());
-      var course = {'name':name, 'id': id, 'studentList':studentList, 'lecturerId':lecturerId, 'roomId': roomId, 'schedule': {'day':day, start:hour, end:hour + 1} };
-      $.ajax({url: '/admin/addClass',
-          dataType: 'json',
-          'Content-type': 'application/json',
-          method: "POST",
-          data:course,
-          success: (res) => {
-              alert('Great Success');
-              var state = this.state;
-              state.students.push(course)
-              this.setState(state);
-          },
-          error: (err)=>{
-              alert(err.message);
-              console.log(err);
-          }
-      });
-  }
+    addStudent(e){
+        e.preventDefault();
+        var id = $("#id3").val();//TODO
+        var password = $("#pass3").val();
+        var student = {'id': id, 'password':password};
+
+        $.ajax({url: '/addStudent',
+            dataType: 'json',
+            'Content-type': 'application/json',
+            method: "POST",
+            data:student,
+            success: (res) => {
+                var state = this.state;
+                state.students.push(student);
+                this.setState(state);
+            },
+            error: (err)=>{
+                console.log(err);
+            }
+        });
+    }
+//available through REST api
+  //createClass(e){
+  //    e.preventDefault();
+  //    var name = $('#name2').val();
+  //    var id = $('#courseNumber2').val();//TODO
+  //    var studentList = $('#studentList2').val();
+  //    var lecturerId = $('#instructor2').val();
+  //    var roomId = $('#roomId2').val();
+  //    var day = $('#day2').val();
+  //    var hour = parseInt($('#hour2').val());
+  //    var course = {'name':name, 'id': id, 'studentList':JSON.parse(studentList), 'lecturerId':lecturerId, 'roomId': roomId, 'schedule': {'day':day, start:hour, end:hour + 1} };
+  //    $.ajax({url: '/admin/addClass',
+  //        dataType: 'json',
+  //        'Content-type': 'application/json',
+  //        method: "POST",
+  //        data:course,
+  //        success: (res) => {
+  //            alert('Great Success');
+  //            var state = this.state;
+  //            state.students.push(course)
+  //            this.setState(state);
+  //        },
+  //        error: (err)=>{
+  //            console.log(err);
+  //        }
+  //    });
+  //}
 
 
   getAll(tableName) {
@@ -227,42 +248,18 @@ class AdminInterface extends React.Component {
                                 <input type="submit"/>
                             </form>
 
-                            <form id="courseForm" onSubmit={this.createClass.bind(this)}>
-                                Add Course<br/>
-                                <input type="text" placeholder="Course Title" id="name2"/>
-                                <input type="number" placeholder="Course number" id="courseNumber2"/>
-                                <input type="text" placeholder="student list" id="studentList2"/>
-                                <input type="number" placeholder="Instructor" id="instructor2"/>
-                                <input type="number" placeholder="room number" id="roomId2"/>
-                                <select id="day2" form="courseForm">
-                                    <option value="sunday">Sunday</option>
-                                    <option value="monday">Monday</option>
-                                    <option value="tuesday">Tuesday</option>
-                                    <option value="wednesday">Wednesday</option>
-                                    <option value="thursday">Thursday</option>
-                                </select>
-                                <select id="hour2" form="courseForm">
-                                    <option value='08'>08:00</option>
-                                    <option value='09'>09:00</option>
-                                    <option value='10'>10:00</option>
-                                    <option value='11'>11:00</option>
-                                    <option value='12'>12:00</option>
-                                    <option value='13'>13:00</option>
-                                    <option value='14'>14:00</option>
-                                    <option value='15'>15:00</option>
-                                    <option value='16'>16:00</option>
-                                    <option value='17'>17:00</option>
-                                    <option value='18'>18:00</option>
-                                    <option value='19'>19:00</option>
-                                    <option value='20'>20:00</option>
-                                </select>
+                            <form onSubmit={this.addStudent.bind(this)}>
+                                Add Student
+                                <input type="number" placeholder="Id number" id="id3"/>
+                                <input type="text" placeholder="Password" id="pass3"/>
                                 <input type="submit"/>
                             </form>
+
                         </div>
                         <div id="Manual" style={{visibility:'visible'}}>
                             <b>This is an inteface for viewing and managing the attendace system,</b><br/><br/>
                             the first three tabs(from the left) allow you to view the database directly<br/>
-                            the fourth tab allows you to add both users and Courses for which attendance will be taken.
+                            the fourth tab allows you to add users for which attendance will be taken.
 
                         </div>
                         <div id="About" style={{visibility:'visible'}}>

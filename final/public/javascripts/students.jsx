@@ -36,12 +36,11 @@ class AdminInterface extends React.Component {
         return (e) => {
             e.preventDefault();
             let mac = $('#macInput').val();
-            let id = $('#idInput').val();
             console.log("here-------------");
-            if(mac.length == this.MAC_LENGTH || id.toString().length == this.ID_LENGTH) {
+            if(mac.length == this.MAC_LENGTH) {
                 $.ajax({
                     url: '/student/registermac',
-                    data: {id: id, mac:mac},
+                    data: {mac:mac},
                     dataType: "application/json",
                     method: "POST",
                     success: () => {
@@ -86,7 +85,6 @@ class AdminInterface extends React.Component {
             <section>
                 <div className="registerMacDiv">
                     <form id="formula" onSubmit={this.registerMac().bind(this)}>
-                        <input id="idInput" placeholder="Id number" type="number" required/>
                         <input id="macInput" placeholder="MAC" type="text" required/>
                         <button>Register</button>
                     </form>
