@@ -278,7 +278,8 @@ input {
     display:block;
 }
 input[type=text],
-input[type=password]{
+input[type=password],
+input[type=number]{
     width:100%;
     box-sizing:border-box;
     height:2.5em;

@@ -1,11 +1,18 @@
 import requests
 import re
 import subprocess
-<<<<<<< HEAD
 import time
+import pickle
 #CONFIG
 CLASSROOM = 1
 ###
+
+def restart():
+    command = "/usr/bin/sudo /sbin/shutdown -r now"
+    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+    output = process.communicate()[0]
+    print output
+
 MAC_FILE = "/var/tmp/req.txt"
 SERVER_ENDPOINT = "http://192.168.1.104/"
 OPERATION_TIME = 40
@@ -30,4 +37,10 @@ with open(MAC_FILE, 'r') as captured:
 macs = list(set(macs))
 print("macs", macs)
 payload = {"class":CLASSROOM, "students":macs}
-requests.post(SERVER_ENDPOINT, data=payload)
+with open('/var/tmp/pick', 'wb') as outfile:
+    pickle.dump(payload, outfile)
+# requests.post(SERVER_ENDPOINT, data=payload)
+#restart()
+
+
+

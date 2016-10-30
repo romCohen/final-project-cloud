@@ -27,7 +27,8 @@ class AdminInterface extends React.Component {
         })
     }
 
-    addLecturer(){
+    addLecturer(e){
+        e.preventDefault();
         var id = $("#id1").val();//TODO
         var password = $("#pass1").val();
         var name = $("#name1").val();
@@ -39,9 +40,9 @@ class AdminInterface extends React.Component {
           method: "POST",
           data:lecturer,
           success: (res) => {
-              alert('Great Success');
+              //alert('Great Success');
               var state = this.state;
-              state.lecturers.add(lecturer);
+              state.lecturers.push(lecturer);
               this.setState(state);
           },
           error: (err)=>{
@@ -51,14 +52,16 @@ class AdminInterface extends React.Component {
       });
     }
 
-  createClass(){
-      var id = null;//TODO
-      var studentList = null;
-      var instructorId = null;
-      var roomId = null;
-      var schedule = null;
-
-      var course = {'id': id, 'studentList':studentList, 'lecturerId':instructorId, 'roomId': roomId, 'schedule': schedule };
+  createClass(e){
+      e.preventDefault();
+      var name = $('#name2').val();
+      var id = $('#courseNumber2').val();//TODO
+      var studentList = $('#studentList2').val();
+      var lecturerId = $('#instructor2').val();
+      var roomId = $('#roomId2').val();
+      var day = $('#day2').val();
+      var hour = parseInt($('#hour2').val());
+      var course = {'name':name, 'id': id, 'studentList':studentList, 'lecturerId':lecturerId, 'roomId': roomId, 'schedule': {'day':day, start:hour, end:hour + 1} };
       $.ajax({url: '/admin/addClass',
           dataType: 'json',
           'Content-type': 'application/json',
@@ -67,7 +70,7 @@ class AdminInterface extends React.Component {
           success: (res) => {
               alert('Great Success');
               var state = this.state;
-              state.students.add(course)
+              state.students.push(course)
               this.setState(state);
           },
           error: (err)=>{
@@ -148,6 +151,7 @@ class AdminInterface extends React.Component {
             console.log(this.state.lecturers[key]);
             return (
                 <tr key={i}>
+                    <td data-th="Instructor">{this.state.lecturers[key].name}</td>
                     <td data-th="Instructor id Number">{this.state.lecturers[key].id}</td>
                     <td data-th="Courses">{this.state.lecturers[key].classes.toString()}</td>
                 </tr>
@@ -206,6 +210,7 @@ class AdminInterface extends React.Component {
                                 </colgroup>
                                 <thead>
                                 <tr>
+                                    <th>Instructor</th>
                                     <th>Id Number</th>
                                     <th>Courses</th>
                                 </tr>
@@ -214,22 +219,44 @@ class AdminInterface extends React.Component {
                             </table>
                         </div>
                         <div id="editPanel" style={{visibility:'visible'}}>
-                            <form>
+                            <form onSubmit={this.addLecturer.bind(this)}>
                                 Add Lecturer<br/>
                                 <input type="text" placeholder="Name" id="name1"/>
-                                <input type="text" placeholder="Id number" id="id1"/>
+                                <input type="number" placeholder="Id number" id="id1"/>
                                 <input type="text" placeholder="Password" id="pass1"/>
                                 <input type="submit"/>
                             </form>
 
-                            <form>
+                            <form id="courseForm" onSubmit={this.createClass.bind(this)}>
                                 Add Course<br/>
                                 <input type="text" placeholder="Course Title" id="name2"/>
-
-                                <input type="password"/>
-
+                                <input type="number" placeholder="Course number" id="courseNumber2"/>
+                                <input type="text" placeholder="student list" id="studentList2"/>
+                                <input type="number" placeholder="Instructor" id="instructor2"/>
+                                <input type="number" placeholder="room number" id="roomId2"/>
+                                <select id="day2" form="courseForm">
+                                    <option value="sunday">Sunday</option>
+                                    <option value="monday">Monday</option>
+                                    <option value="tuesday">Tuesday</option>
+                                    <option value="wednesday">Wednesday</option>
+                                    <option value="thursday">Thursday</option>
+                                </select>
+                                <select id="hour2" form="courseForm">
+                                    <option value='08'>08:00</option>
+                                    <option value='09'>09:00</option>
+                                    <option value='10'>10:00</option>
+                                    <option value='11'>11:00</option>
+                                    <option value='12'>12:00</option>
+                                    <option value='13'>13:00</option>
+                                    <option value='14'>14:00</option>
+                                    <option value='15'>15:00</option>
+                                    <option value='16'>16:00</option>
+                                    <option value='17'>17:00</option>
+                                    <option value='18'>18:00</option>
+                                    <option value='19'>19:00</option>
+                                    <option value='20'>20:00</option>
+                                </select>
                                 <input type="submit"/>
-
                             </form>
                         </div>
                         <div id="Manual" style={{visibility:'visible'}}>

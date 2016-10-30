@@ -237,12 +237,12 @@ function DB() {
                 console.error(err);
                 cb(err);
             } else {
-                var cursor = Class.find({LecturerId: LecturerId}).corsor();
+                var cursor = Class.find({LecturerId: lecturerId}).cursor();
                 var classList = [];
                 cursor.on('data', function (classObj) {
                     classList.push(classObj.id);
                 });
-                cursos.on('end', function() {
+                cursor.on('end', function() {
                     addNewUser(lecturerId, password, "Admin", function() {
                         new Lecturer({
                             id: lecturerId,
