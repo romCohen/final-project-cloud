@@ -126,12 +126,6 @@ app.get('/students', function (req, res) {
 
 //Students data request
 app.get('/students/data', function (req, res) {
-  //dataBase.getStudentAttendance(req.user.username, function(classes) {
-  //  if (!classes) {
-  //    res.status(500).end(classes);
-  //  } else {
-  //    res.status(200).json(classes);
-  //  }
   dataBase.getStudentAttendance(req.user.username, function(classes) {
     if (!classes) {
       res.status(500).end(classes);
@@ -141,10 +135,14 @@ app.get('/students/data', function (req, res) {
   });
 });
 
+app.post('/students/update_MAC', function(req, res) {
+  dataBase.updateMACAddress(req.user.username, req.body.MACAddress, returnStatusFunction(res)));
+});
+
 // TODO : add classes, remove classes
 
 app.post('/addStudent', function (req, res) {
-  dataBase.createStudent(req.body.id, req.body.classList, req.body.password, req.body.MACAddress,
+  dataBase.createStudent(req.body.id, req.body.password, req.body.MACAddress,
       returnStatusFunction(res));
 });
 

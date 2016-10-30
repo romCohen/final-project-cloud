@@ -222,6 +222,23 @@ function DB() {
     };
 
     /**
+     * Update the given MAC address to the student with the given ID
+     * @param studentId - {int} The ID of the student
+     * @param MACAddress - {String} The MAC address of the student
+     * @param cb - {Function} call back function that takes in an err.
+     */
+    this.updateMACAddress = function(studentId, MACAddress, cb) {
+        var cursor = Student.find({id: studentId}).cursor();
+        cursor.on('data', function(student) {
+            student.MAC = MACAddress;
+            student.save(function (err) {
+                if (err) return console.error(err);
+                cb(null);
+            });
+        })
+    };
+
+    /**
      * Check if DB document of with the given lecturerId exists, if not create it
      * @param lecturerId - {int} The given lecturer ID
      * @param password - {String} The lecturer's password
