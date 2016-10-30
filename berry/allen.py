@@ -10,7 +10,7 @@ CLASSROOM = 1
 
 
 MAC_FILE = "/var/tmp/req.txt"
-SERVER_ENDPOINT = "http://localhost:3000/pidata"
+SERVER_ENDPOINT = "http://192.168.0.1/pidata"
 OPERATION_TIME = 40
 CAPTURE_CMD = "sudo timeout " + str(OPERATION_TIME) + " tcpdump -e -i mon0 -ni mon0 type mgt subtype probe-req"
 MAC_LENGTH = 17
