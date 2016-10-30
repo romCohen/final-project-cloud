@@ -18,6 +18,8 @@ SERVER_ENDPOINT = "http://192.168.1.104/"
 OPERATION_TIME = 40
 CAPTURE_CMD = "sudo timeout " + str(OPERATION_TIME) + " tcpdump -e -i mon0 -ni mon0 type mgt subtype probe-req"
 MAC_LENGTH = 17
+
+subprocess.call('sudo airmon-ng start wlan0')
 with open(MAC_FILE, 'w') as macfile:
     p = subprocess.Popen(CAPTURE_CMD, stdout=macfile, shell=True)
     p.communicate()
