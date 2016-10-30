@@ -11,7 +11,7 @@ def restart():
     command = "/usr/bin/sudo /sbin/shutdown -r now"
     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
     output = process.communicate()[0]
-    print output
+    print(output)
 
 MAC_FILE = "/var/tmp/req.txt"
 SERVER_ENDPOINT = "http://192.168.1.104/"
